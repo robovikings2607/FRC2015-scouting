@@ -44,7 +44,10 @@ public class SQLiteTest{
   String tableName;
   String tableSwitch;
   String values;
-  boolean firstTime = true;
+  String takesFromLandFill;
+  String knockedOverContainers;
+  String knockedOverTotes;
+  boolean firstTime = false;
   
   
   String namedFile = "scoutdb.db";
@@ -66,20 +69,12 @@ public void run() throws Exception {
 		    + "ScoutName varchar(30)," + "TeamNumber INT," + "Points INT," + "TotalStackNumberForward integer," + "TotalStackNumberBack integer," +  
 				   "NumberOfTotes INT," +
 				  "RecyclingContainers INT," + "AverageContainerHeight INT," + "NoodlesOnTopOfStacks INT," + "GameNotes varchar(30)," +
-				   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
-				  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + "CoopertitionStacked varchar(30));");
+				   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," +"TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," 
+				  +  "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
+				  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + 
+				   "Absent varchar(30)," + "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT);");
 		  firstTime = false;
-	  } else {
-	  
-	  stat.executeUpdate("INSERT INTO " + tableName + "(MatchNumber,"
-			    + "ScoutName," + "TeamNumber," + "Points," + "TotalStackNumberForward," + "TotalStackNumberBack," +  
-					   "NumberOfTotes," +
-					  "RecyclingContainers," + "AverageContainerHeight," + "NoodlesOnTopOfStacks," + "GameNotes," +
-					   "EsBroken," + "TakesFromHumanPlayer," + "MadeItToAutoZone," + "AutoTotesMoved," +
-					  "StackedAllThreeAutonTotes," + "AutoRecyclingContainersMoved," + "DidNothing," + "Absent," + "CoopertitionStacked) "
-					  		+ "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)" );
-	  
-	  }
+	  } 
   } else {
   stat.executeUpdate("drop table if exists " + tableName);
   
@@ -90,12 +85,13 @@ public void run() throws Exception {
     + "ScoutName varchar(30)," + "TeamNumber INT," + "Points INT," + "TotalStackNumberForward integer," + "TotalStackNumberBack integer," +  
 		   "NumberOfTotes INT," +
 		  "RecyclingContainers INT," + "AverageContainerHeight INT," + "NoodlesOnTopOfStacks INT," + "GameNotes varchar(30)," +
-		   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
-		  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + "CoopertitionStacked varchar(30));");
+		   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," +
+		   "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
+		  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + 
+				   "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT);");
   }
   // inserting data
-  PreparedStatement prep = con
-    .prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
   prep.setInt(1, matchNumber);
   prep.setString(2, scouterName);
@@ -110,13 +106,18 @@ public void run() throws Exception {
   prep.setString(11, gameNotes);
   prep.setString(12, esBroken);
   prep.setString(13, takesFromHumanPlayer);
-  prep.setString(14, autoZone);
-  prep.setInt(15, autoTotesMoved);
-  prep.setString(16, autoTotesStacked);
-  prep.setInt(17, autoBinsMoved);
-  prep.setString(18, didNothing);
-  prep.setString(19, absent);
-  prep.setString(20, coopertitionStacked);
+  prep.setString(14, takesFromLandFill);
+  prep.setString(15, knockedOverContainers);
+  prep.setString(16, knockedOverTotes);
+  prep.setString(17, autoZone);
+  prep.setInt(18, autoTotesMoved);
+  prep.setString(19, autoTotesStacked);
+  prep.setInt(20, autoBinsMoved);
+  prep.setString(21, didNothing);
+  prep.setString(22, absent);
+  prep.setString(23, coopertitionStacked);
+  prep.setInt(24, landFillNoodles);
+  
   
   
   
@@ -146,6 +147,12 @@ public void run() throws Exception {
   }
 
 }
+
+public void createNewTable(){
+	firstTime = true;
+}
+
+
 public void setTeamNumber(int TeamNumber){
 	teamNumber = TeamNumber;
 	
@@ -254,6 +261,17 @@ public void setLandFillNoodles(int noodles){
 	landFillNoodles = noodles;
 }
 
+public void setTakesFromLandFill(String takesFromLandFill){
+	this.takesFromLandFill = takesFromLandFill;
+}
+
+public void setPickedUpKnockedOverContainers(String knockedOverContainers){
+	this.knockedOverContainers = knockedOverContainers;
+}
+
+public void setPickedUpKnockedOverTotes(String knockedOverTotes){
+	this.knockedOverTotes = knockedOverTotes;
+}
 
   /**
   * @param args

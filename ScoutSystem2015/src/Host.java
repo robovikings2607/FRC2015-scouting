@@ -41,10 +41,18 @@ public class Host extends JFrame {
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JLabel driveLabel;
+	private JTextField endField;
 	private static JTextField driveField;
+	private static JButton newTableButton;
+	private static JLabel startLabel;
+	private static JLabel endLabel;
 	
 	private static String drive;
-	private static String tableName;
+	private static String start;
+	private static String end;
+	
+	static int startNumber = 0;
+	static int endNumber =0;
 	
 	private ServerSocket serverSocket;
 	private BufferedReader in;
@@ -103,7 +111,7 @@ public class Host extends JFrame {
 
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 317);
+		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -263,6 +271,13 @@ public class Host extends JFrame {
 		btnNewButton.setBounds(313, 10, 111, 23);
 		contentPane.add(btnNewButton);
 		
+		newTableButton = new JButton("Create a New Table");
+		newTableButton.setBackground(new Color(204, 204, 204));
+		newTableButton.setBounds(272, 278, 152, 20);
+		contentPane.add(newTableButton);
+		newTableButton.setActionCommand("New Table");
+		
+		
 		textField_11 = new JTextField();
 		textField_11.setBackground(new Color(204, 204, 204));
 		textField_11.setBounds(272, 248, 152, 20);
@@ -275,26 +290,30 @@ public class Host extends JFrame {
 		
 		textField_12 = new JTextField();
 		textField_12.setBackground(new Color(204, 204, 204));
-		textField_12.setBounds(10, 275, 86, 20);
+		textField_12.setBounds(50, 275, 86, 20);
 		contentPane.add(textField_12);
 		textField_12.setColumns(10);
+		
+		startLabel = new JLabel("From:");
+		startLabel.setBounds(10, 275, 45, 14);
+		contentPane.add(startLabel);
 		
 		textField_12.addFocusListener(new FocusAdapter() {
              public void focusLost(FocusEvent e) {
                 // should be editable only when disconnected
-                tableName = textField_12.getText();
+                start = textField_12.getText();
              }  
          }
           );
 		
 		driveLabel = new JLabel();
-		driveLabel.setText("Drive");
-		driveLabel.setBounds(106, 247, 89, 23);
+		driveLabel.setText("Drive:");
+		driveLabel.setBounds(10, 247, 89, 23);
 		contentPane.add(driveLabel);
 		
 		driveField = new JTextField();
 		driveField.setBackground(new Color(204, 204, 204));
-		driveField.setBounds(10, 248, 86, 20);
+		driveField.setBounds(50, 248, 86, 20);
 		contentPane.add(driveField);
 		
 		driveField.addFocusListener(new FocusAdapter() {
@@ -304,10 +323,27 @@ public class Host extends JFrame {
             }  
         }
          );
+		
+		endField = new JTextField();
+		endField.setBackground(new Color(204, 204, 204));
+		endField.setBounds(50, 302, 86, 20);
+		contentPane.add(endField);
+		
+		endLabel = new JLabel("To:");
+		endLabel.setBounds(10, 305, 45, 14);
+		contentPane.add(endLabel);
+		
+		endField.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+               // should be editable only when disconnected
+               end = endField.getText();
+            }  
+        }
+         );
 
 		JButton Submit = new JButton("Submit!");
 		Submit.setBackground(new Color(204, 204, 204));
-		Submit.setBounds(106, 275, 89, 23);
+		Submit.setBounds(272, 308, 152, 20);
 		contentPane.add(Submit);
 		Submit.setActionCommand("Host Submit");
 		buttonListener = new ActionAdapter() {
@@ -321,19 +357,27 @@ public class Host extends JFrame {
 					e1.printStackTrace();
 				}
                }
+               
+               if(e.getActionCommand().equals("New Table")){
+            	   CopyOfGUIScoutstatic.sql.createNewTable();
+               }
                }
 		};
 		
 		Submit.addActionListener(buttonListener);
-		
+		newTableButton.addActionListener(buttonListener);
 	}
 	
 	public static void addData() throws Exception{
 		 Class.forName("org.sqlite.JDBC");
 	        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + drive + ":" + "Client"); 
 	        Statement stat = conn.createStatement();
-
-	        ResultSet rs = stat.executeQuery("select * from "+  tableName);
+	        
+	        startNumber = Integer.parseInt(start);
+	        endNumber = Integer.parseInt(end);
+	         
+	        while (startNumber <= endNumber){
+	        ResultSet rs = stat.executeQuery("select * from "+ "MatchNumber_" + startNumber);
 	        while (rs.next()) {
 	            CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
 	            CopyOfGUIScoutstatic.sql.setFileName("Host");
@@ -353,6 +397,11 @@ public class Host extends JFrame {
 	            CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
 	            CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
 	            CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
+	            CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
+	            CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
+	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
+	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+	            
 	            try {
 	            	CopyOfGUIScoutstatic.sql.run();
 				} catch (Exception e) {
@@ -362,7 +411,12 @@ public class Host extends JFrame {
 	            
 	            
 	        }
+	        
+	        startNumber +=1;  
 	        rs.close();
+	        }
 	        conn.close();
+	        
+	        
 	}
 }

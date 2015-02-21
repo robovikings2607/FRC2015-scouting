@@ -83,6 +83,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	   static String esBroken;
 	   static String drive;
 	   static String tableName;
+	   static String takesFromLandFill;
 
 	/*  static int dataNumbers[] = {matchNumber,teamNumber, pointsScored, stacksMade, level1Stacks, level2Stacks, level3Stacks,
 		level4Stacks, level5Stacks, level6Stacks, recycleBins, noodles, avgStackHeight, autoTotesMoved, autoBinsMoved };
@@ -144,6 +145,13 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 static int connectionStatus = DISCONNECTED;
 	 static JLabel driveLabel;
 	 static JTextField driveField;
+	 static JCheckBox chkbxTakesFromLandFill;
+	 static JLabel pickedUpKnockedOver;
+	 static JCheckBox chkbxknockedOverContainers;
+	 static JCheckBox chkbxknockedOverTotes;
+	 
+	 static String knockedOverContainters;
+	 static String knockedOverTotes;
 	
 	 static int y = 25;
 	
@@ -183,7 +191,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
       static int avgContainerHeight;
   
      
-      static Color containerColors[] = {Color.green, Color.yellow, Color.white, Color.blue, Color.red, Color.orange, Color.pink};
+      static Color containerColors[] = {Color.green, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray};
       static int containerHeight[] = {0,0,0,0,0,0,0};
       static int containerHeightBack[] = {0,0,0,0,0,0,0};
 	/**
@@ -526,12 +534,35 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chckbxCoopertitionStacked = new JCheckBox("Coopertition stacked?");
 		chckbxCoopertitionStacked.setBackground(new Color(204, 204, 204));
 		chckbxCoopertitionStacked.setFont(new Font("Arial", Font.BOLD, 11));
-		chckbxCoopertitionStacked.setBounds(149, 233, 186, 23);
+		chckbxCoopertitionStacked.setBounds(149, 263, 186, 23);
 		frame.getContentPane().add(chckbxCoopertitionStacked);
 		chckbxCoopertitionStacked.setActionCommand("coop");
 		coopertitionStacked = "no";
 		autoTotesStacked = "no";
 		
+		chkbxTakesFromLandFill = new JCheckBox("Takes from landfill?");
+		chkbxTakesFromLandFill.setBackground(new Color(204, 204, 204));
+		chkbxTakesFromLandFill.setFont(new Font("Arial", Font.BOLD, 11));
+		chkbxTakesFromLandFill.setBounds(149, 233, 186, 23);
+		frame.getContentPane().add(chkbxTakesFromLandFill);
+		chkbxTakesFromLandFill.setActionCommand("takesFromLandfill");
+		takesFromLandFill = "no";
+		
+		chkbxknockedOverContainers = new JCheckBox("Containers");
+		chkbxknockedOverContainers.setBackground(new Color(204, 204, 204));
+		chkbxknockedOverContainers.setFont(new Font("Arial", Font.BOLD, 11));
+		chkbxknockedOverContainers.setBounds(10, 233, 90, 23);
+		frame.getContentPane().add(chkbxknockedOverContainers);
+		chkbxknockedOverContainers.setActionCommand("knockedContainers");
+		knockedOverContainters = "no";
+		
+		chkbxknockedOverTotes = new JCheckBox("Totes");
+		chkbxknockedOverTotes.setBackground(new Color(204, 204, 204));
+		chkbxknockedOverTotes.setFont(new Font("Arial", Font.BOLD, 11));
+		chkbxknockedOverTotes.setBounds(10, 263, 90, 23);
+		frame.getContentPane().add(chkbxknockedOverTotes);
+		chkbxknockedOverTotes.setActionCommand("knockedTotes");
+		knockedOverTotes = "no";
 		
 		buttonListener = new ActionAdapter() {
             public void actionPerformed(ActionEvent e) {
@@ -585,6 +616,24 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
             		   coopertitionStacked = "no";
             	   
                }
+               if(e.getActionCommand().equals("takesFromLandfill")){
+            	   if(chkbxTakesFromLandFill.isSelected())
+            		   takesFromLandFill = "yes";
+            	   else
+            		   takesFromLandFill = "no";
+               }
+               if(e.getActionCommand().equals("knockedContainers")){
+            	   if(chkbxknockedOverContainers.isSelected())
+            		   knockedOverContainters = "yes";
+            	   else
+            		   knockedOverContainters = "no";
+               }
+               if(e.getActionCommand().equals("knockedTotes")){
+            	   if(chkbxknockedOverTotes.isSelected())
+            		   knockedOverTotes = "yes";
+            	   else
+            		   knockedOverTotes = "no";
+               }
                
             }
          };
@@ -596,6 +645,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          chckbxStackedAllThree.addActionListener(buttonListener);
          chckbxDidNothing.addActionListener(buttonListener);
          chckbxCoopertitionStacked.addActionListener(buttonListener);
+         chkbxTakesFromLandFill.addActionListener(buttonListener);
+         chkbxknockedOverContainers.addActionListener(buttonListener);
+         chkbxknockedOverTotes.addActionListener(buttonListener);
 		
 		btnSubmit = new JButton("Submit!");
 		btnSubmit.setBounds(840, 12, 89, 23);
@@ -669,7 +721,10 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   sql.setBroken(esBroken);
                   sql.setAutoTotesMoved(autoTotesMoved);
                   sql.setAutoBinsMoved(autoBinsMoved);
-                  
+                  sql.setLandFillNoodles(landFillNoodles);
+                  sql.setTakesFromLandFill(takesFromLandFill);
+                  sql.setPickedUpKnockedOverContainers(knockedOverContainters);
+                  sql.setPickedUpKnockedOverTotes(knockedOverTotes);
                   
                   
                   
@@ -776,6 +831,10 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		frame.getContentPane().add(rdbtnClient);
 		rdbtnClient.setMnemonic(KeyEvent.VK_G);
 		rdbtnClient.setActionCommand("guest");
+		
+		pickedUpKnockedOver = new JLabel("<html> Picked up<> knocked over<>");
+		pickedUpKnockedOver.setBounds(10, 160, 89, 100);
+		frame.getContentPane().add(pickedUpKnockedOver);
 		
 		
 		btnNewButton = new JButton("Host Menu");
@@ -904,44 +963,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
         			  System.out.println("Total Totes Back: " + totalTotesBack);
         			  System.out.println("totes: " + totes);
             	  
-            	  /* System.out.println("Tote Number for Column 1: " + columns[0]);
-            	   System.out.println("Tote Number for Column 2: " + columns[1]);
-            	   System.out.println("Tote Number for Column 3: " + columns[2]);
-            	   System.out.println("Tote Number for Column 4: " + columns[3]);
-            	   System.out.println("Tote Number for Column 5: " + columns[4]);
-            	   System.out.println("Tote Number for Column 6: " + columns[5]);
-            	   System.out.println("Tote Number for Column Back 1: " + columnsBack[0]);
-            	   System.out.println("Tote Number for Column Back 2: " + columnsBack[1]);
-            	   System.out.println("Tote Number for Column Back 3: " + columnsBack[2]);
-            	   System.out.println("Tote Number for Column Back 4: " + columnsBack[3]);
-            	   System.out.println("Tote Number for Column Back 5: " + columnsBack[4]);
-            	   System.out.println("Tote Number for Column Back 6: " + columnsBack[5]);
-            	   */ 
-            	   
-                /* if (e.getActionCommand().equals("+1")) {
-                	level1Stacks += 1;
-                	System.out.println("Number of Level 1 Totes Stacked: " + level1Stacks);
-                 }
-                 if (e.getActionCommand().equals("+2")) {
-                 	level2Stacks += 1;
-                 	System.out.println("Number of Level 2 Totes Stacked: " + level2Stacks);
-                  }
-                 if (e.getActionCommand().equals("+3")) {
-                 	level3Stacks += 1;
-                 	System.out.println("Number of Level 3 Totes Stacked: " + level3Stacks);
-                  }
-                 if (e.getActionCommand().equals("+4")) {
-                 	level4Stacks += 1;
-                 	System.out.println("Number of Level 4 Totes Stacked: " + level4Stacks);
-                  }
-                 if (e.getActionCommand().equals("+5")) {
-                 	level5Stacks += 1;
-                 	System.out.println("Number of Level 5 Totes Stacked: " + level5Stacks);
-                  }
-                 if (e.getActionCommand().equals("+6")) {
-                 	level6Stacks += 1;
-                 	System.out.println("Number of Level 6 Totes Stacked: " + level6Stacks);
-                  } */
+            	  
         			  totePoints = totes *2;
             		  System.out.println("totePoints: " + totePoints);	
               }
@@ -955,25 +977,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
         	  panel_1.buttonList.get(counter).addActionListener(buttonListener);
         	  panel_1.buttonList.get(counter).setActionCommand("b" + Integer.toString(counter));
           
-        /*  if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 1){
-          panel.buttonList.get(counter).setActionCommand("+1");
-         
-          }
-          if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 2){
-        	  panel.buttonList.get(counter).setActionCommand("+2");
-          }
-          if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 3){
-        	  panel.buttonList.get(counter).setActionCommand("+3");
-          }
-          if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 4){
-        	  panel.buttonList.get(counter).setActionCommand("+4");
-          }
-          if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 5){
-        	  panel.buttonList.get(counter).setActionCommand("+5");
-          }
-          if(Integer.parseInt(panel.buttonList.get(counter).getText()) == 6){
-        	  panel.buttonList.get(counter).setActionCommand("+6");
-          } */
+      
           
           }
            recycleBins = 0;
@@ -1287,6 +1291,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          autoZone = "no";   
          autoTotesStacked = "no"; 
          didNothing  = "no"; 
+         takesFromLandFill = "no";
+         knockedOverContainters = "no";
+         knockedOverTotes = "no";
          chckbxEsBroken.setSelected(false);
          chckbxNewCheckBox_1.setSelected(false);
          chckbxNewCheckBox.setSelected(false);
@@ -1294,6 +1301,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          chckbxStackedAllThree.setSelected(false);
          chckbxCoopertitionStacked.setSelected(false);
          chckbxDidNothing.setSelected(false);
+         chkbxTakesFromLandFill.setSelected(false);
+         chkbxknockedOverContainers.setSelected(false);
+         chkbxknockedOverTotes.setSelected(false);
          
          autoTotesMoved = 0;
          autoBinsMoved = 0;
@@ -1328,6 +1338,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          landFillNoodles = 0;
          avgContainerHeight = 0;
          recycleBins = 0;
+         
+         
+         
 
 	 }
 }
