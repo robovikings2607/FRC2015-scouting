@@ -205,101 +205,101 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 					
 					
 
-				 while (flag) {
-			         try { // Poll every ~10 ms
-			            Thread.sleep(10);
-			         }
-			         catch (InterruptedException e) {}
-
-			         switch (connectionStatus) {
-			         case BEGIN_CONNECT:
-			            try {
-			               // Try to set up a server if host
-			               if (isHost) {
-			            	   hostServer = new ServerSocket(1234);
-			            	   socket = hostServer.accept();
-			            	   sql.setFileName("hostscout.db");
-			               }
-
-			               // If guest, try to connect to the server
-			               else {
-			            	   socket = new Socket(hostIP, 1234);
-			            	   sql.setFileName("clientscout.db");
-			               }
-
-			               in = new BufferedReader(new 
-			                  InputStreamReader(socket.getInputStream()));
-			               out = new PrintWriter(socket.getOutputStream(), true);
-			               changeStatusTS(CONNECTED, true);
-			               
-			            }
-			            // If error, clean up and output an error message
-			            catch (IOException e) {
-			               cleanUp();
-			               changeStatusTS(DISCONNECTED, false);
-			            }
-			            
-			            break;
-
-			         case CONNECTED:
-			        	 
-			          /*  try {
-			               // Send data
-			            	
-			               if (toSend.length() != 0) {
-			                  out.print(toSend); out.flush();
-			                  toSend.setLength(0);
-			                  changeStatusTS(NULL, true);
-			             
-			               }
-
-			               // Receive data
-			               if (in.ready()) {
-			                  s = in.readLine();
-			                  
-			                  if ((s != null) &&  (s.length() != 0)) {
-			                     // Check if it is the end of a trasmission
-			                     if (s.equals(END_CHAT_SESSION)) {
-			                        changeStatusTS(DISCONNECTING, true);
-			  
-			                     }
-
-			                     // Otherwise, receive what text
-			                     else {
-			                        appendToChatBox(s + "\n");
-			                        changeStatusTS(NULL, true);
-			                     }
-			                  }
-			               }
-			            }
-			            
-			            catch (IOException e) {
-			               cleanUp();
-			               changeStatusTS(DISCONNECTED, false);
-			            }
-			            */
-			         
-			            break;
-
-			         case DISCONNECTING:
-			            // Tell other chatter to disconnect as well
-			            out.flush();
-
-			            // Clean up (close all streams/sockets)
-			            cleanUp();
-			            changeStatusTS(DISCONNECTED, true);
-			            try {
-			                sql.run();
-			              } catch (Exception e) {
-			                 
-			                }
-			            break;
-			            
-
-			         default: break; // do nothing
-			         }
-			         
-			      }
+//				 while (flag) {
+//			         try { // Poll every ~10 ms
+//			            Thread.sleep(10);
+//			         }
+//			         catch (InterruptedException e) {}
+//
+//			         switch (connectionStatus) {
+//			         case BEGIN_CONNECT:
+//			            try {
+//			               // Try to set up a server if host
+//			               if (isHost) {
+//			            	   hostServer = new ServerSocket(1234);
+//			            	   socket = hostServer.accept();
+//			            	   sql.setFileName("hostscout.db");
+//			               }
+//
+//			               // If guest, try to connect to the server
+//			               else {
+//			            	   socket = new Socket(hostIP, 1234);
+//			            	   sql.setFileName("clientscout.db");
+//			               }
+//
+//			               in = new BufferedReader(new 
+//			                  InputStreamReader(socket.getInputStream()));
+//			               out = new PrintWriter(socket.getOutputStream(), true);
+//			               changeStatusTS(CONNECTED, true);
+//			               
+//			            }
+//			            // If error, clean up and output an error message
+//			            catch (IOException e) {
+//			               cleanUp();
+//			               changeStatusTS(DISCONNECTED, false);
+//			            }
+//			            
+//			            break;
+//
+//			         case CONNECTED:
+//			        	 
+//			          /*  try {
+//			               // Send data
+//			            	
+//			               if (toSend.length() != 0) {
+//			                  out.print(toSend); out.flush();
+//			                  toSend.setLength(0);
+//			                  changeStatusTS(NULL, true);
+//			             
+//			               }
+//
+//			               // Receive data
+//			               if (in.ready()) {
+//			                  s = in.readLine();
+//			                  
+//			                  if ((s != null) &&  (s.length() != 0)) {
+//			                     // Check if it is the end of a trasmission
+//			                     if (s.equals(END_CHAT_SESSION)) {
+//			                        changeStatusTS(DISCONNECTING, true);
+//			  
+//			                     }
+//
+//			                     // Otherwise, receive what text
+//			                     else {
+//			                        appendToChatBox(s + "\n");
+//			                        changeStatusTS(NULL, true);
+//			                     }
+//			                  }
+//			               }
+//			            }
+//			            
+//			            catch (IOException e) {
+//			               cleanUp();
+//			               changeStatusTS(DISCONNECTED, false);
+//			            }
+//			            */
+//			         
+//			            break;
+//
+//			         case DISCONNECTING:
+//			            // Tell other chatter to disconnect as well
+//			            out.flush();
+//
+//			            // Clean up (close all streams/sockets)
+//			            cleanUp();
+//			            changeStatusTS(DISCONNECTED, true);
+//			            try {
+//			                sql.run();
+//			              } catch (Exception e) {
+//			                 
+//			                }
+//			            break;
+//			            
+//
+//			         default: break; // do nothing
+//			         }
+//			         
+//			      } 
 			      
 			      
 			      
@@ -699,7 +699,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
             	  if (recycleBins != 0)
              	  avgContainerHeight = totalContainerHeight/recycleBins;
              	  
-            	  pointsScored = totePoints + containerPoints + noodlePoints;
+            	  pointsScored = totePoints + containerPoints + noodlePoints + landFillNoodles;
  
                    sql.setFileName(drive + ":" + "Client");
                   sql.setTableName(tableName);
@@ -857,6 +857,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   if (isHost) {
                      ipField.setEnabled(true);
                      hostIP = ipField.getText();
+                     btnNewButton.setEnabled(true);
                      
                   }
                   else {
