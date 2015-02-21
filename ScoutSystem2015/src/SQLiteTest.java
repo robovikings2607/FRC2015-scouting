@@ -120,22 +120,6 @@ public void run() throws Exception {
   
   
   
-  
-  
- /* prep.setLong(6, column1Stacks);
-  prep.setLong(7, column2Stacks);
-  prep.setLong(8, column3Stacks);
-  prep.setLong(9, column4Stacks);
-  prep.setLong(10, column5Stacks);
-  prep.setLong(11, column6Stacks); 
-  prep.setInt(12, recycleBins);
-  prep.setInt(13, noodles);
-  prep.setInt(14, avgStackHeight);
-  prep.setString(15, takesFromHumanPlayer);
-  prep.setString(16, gameNotes);
-  prep.setString(17, absent);
-  prep.setString(18, coopertitionStacked);
-  */
 
   prep.execute();
 
@@ -175,21 +159,6 @@ public void setScouterName(String name){
 	scouterName = name;
 }
 
-/*public void setStacksMade(long[] stacks, long[] stacks2){
-	column1Stacks = stacks[0];
-	column2Stacks = stacks[1];
-	column3Stacks = stacks[2];
-	column4Stacks = stacks[3];
-	column5Stacks = stacks[4];
-	column6Stacks = stacks[5];
-	column1StacksBack = stacks2[0];
-	column2StacksBack = stacks2[1];
-	column3StacksBack = stacks2[2];
-	column4StacksBack = stacks2[3];
-	column5StacksBack = stacks2[4];
-	column6StacksBack = stacks2[5];
-	
-} */
 
 public void setTotalStackNumber(long totalStackNumber, long totalStackNumberBack){
 	this.totalStackNumber = totalStackNumber;
@@ -271,6 +240,10 @@ public void setPickedUpKnockedOverContainers(String knockedOverContainers){
 
 public void setPickedUpKnockedOverTotes(String knockedOverTotes){
 	this.knockedOverTotes = knockedOverTotes;
+}
+
+public void setAverageContainerHeight(int avgContainerHeight){
+	this.avgContainerHeight = avgContainerHeight;
 }
 
   /**
