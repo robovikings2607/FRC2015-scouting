@@ -10,18 +10,8 @@ public class SQLiteTest{
   int pointsScored;
   int matchNumber;
   int stacksMade;
-  long column1Stacks;
-  long column2Stacks;
-  long column3Stacks;
-  long column4Stacks;
-  long column5Stacks;
-  long column6Stacks;
-    long column1StacksBack;
-	long column2StacksBack;
-	long column3StacksBack;
-	long column4StacksBack;
-	long column5StacksBack;
-	long column6StacksBack;
+  int[] containerHeightsForward = {0,0,0,0,0,0,0};
+  int[] containerHeightsBack = {0,0,0,0,0,0,0};
   int recycleBins;
   int noodles;
   int avgStackHeight;
@@ -72,7 +62,11 @@ public void run() throws Exception {
 				   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," +"TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," 
 				  +  "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
 				  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + 
-				   "Absent varchar(30)," + "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT);");
+				   "Absent varchar(30)," + "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT," + "HeightOfContainerInColumnOneForward INT," +
+				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
+				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
+				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
+				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT);");
 		  firstTime = false;
 	  } 
   } else {
@@ -88,10 +82,14 @@ public void run() throws Exception {
 		   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," +
 		   "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
 		  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + 
-				   "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT);");
+				   "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT," + "HeightOfContainerInColumnOneForward INT," +
+				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
+				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
+				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
+				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT);");
   }
   // inserting data
-  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
   prep.setInt(1, matchNumber);
   prep.setString(2, scouterName);
@@ -117,8 +115,20 @@ public void run() throws Exception {
   prep.setString(22, absent);
   prep.setString(23, coopertitionStacked);
   prep.setInt(24, landFillNoodles);
-  
-  
+  prep.setInt(25, containerHeightsForward[0]);
+  prep.setInt(26, containerHeightsForward[1]);
+  prep.setInt(27, containerHeightsForward[2]);
+  prep.setInt(28, containerHeightsForward[3]);
+  prep.setInt(29, containerHeightsForward[4]);
+  prep.setInt(30, containerHeightsForward[5]);
+  prep.setInt(31, containerHeightsForward[6]);
+  prep.setInt(32, containerHeightsBack[0]);
+  prep.setInt(33, containerHeightsBack[1]);
+  prep.setInt(34, containerHeightsBack[2]);
+  prep.setInt(35, containerHeightsBack[3]);
+  prep.setInt(36, containerHeightsBack[4]);
+  prep.setInt(37, containerHeightsBack[5]);
+  prep.setInt(38, containerHeightsBack[6]);
   
 
   prep.execute();
@@ -244,6 +254,11 @@ public void setPickedUpKnockedOverTotes(String knockedOverTotes){
 
 public void setAverageContainerHeight(int avgContainerHeight){
 	this.avgContainerHeight = avgContainerHeight;
+}
+
+public void setContainerHeights(int[] containerHeightsForward, int[] containerHeightsBack){
+	this.containerHeightsForward = containerHeightsForward;
+	this.containerHeightsBack = containerHeightsBack;
 }
 
   /**

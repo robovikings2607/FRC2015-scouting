@@ -54,6 +54,9 @@ public class Host extends JFrame {
 	static int startNumber = 0;
 	static int endNumber =0;
 	
+	static int[] containerHeightsForward = {0,0,0,0,0,0,0};
+	static int[] containerHeightsBack = {0,0,0,0,0,0,0};
+	
 	private ServerSocket serverSocket;
 	private BufferedReader in;
 	private PrintWriter out;
@@ -401,6 +404,13 @@ public class Host extends JFrame {
 	            CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
 	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
 	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+	            
+	            for(int counter = 0; counter < containerHeightsForward.length; counter ++){
+	            	containerHeightsForward[counter] = rs.getInt(25 + counter);
+	            	containerHeightsBack[counter] = rs.getInt(32 + counter);
+	            }
+	            
+	            CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
 	            
 	            try {
 	            	CopyOfGUIScoutstatic.sql.run();

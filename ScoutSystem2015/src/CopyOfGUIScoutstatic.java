@@ -749,6 +749,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   sql.setTakesFromLandFill(takesFromLandFill);
                   sql.setPickedUpKnockedOverContainers(knockedOverContainters);
                   sql.setPickedUpKnockedOverTotes(knockedOverTotes);
+                  sql.setContainerHeights(containerHeight, containerHeightBack);
                   
                   
                   
