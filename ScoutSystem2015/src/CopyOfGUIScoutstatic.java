@@ -188,8 +188,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
       static long totalTotes;
       static int totes = 0;
       static long totalTotesBack;
-      static long totalNoodles;
-      static long totalNoodlesBack;
+      static int totalNoodles;
+      static int totalNoodlesBack;
      
       static int containerPoints;
       static int totePoints;
@@ -750,6 +750,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   sql.setPickedUpKnockedOverContainers(knockedOverContainters);
                   sql.setPickedUpKnockedOverTotes(knockedOverTotes);
                   sql.setContainerHeights(containerHeight, containerHeightBack);
+                  sql.setNoodleNumber(totalNoodles, totalNoodlesBack);
                   
                   
                   
@@ -1073,12 +1074,12 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                 			  btn = counter;
                 			  
                 			  if ( panel.noodleList.get(counter).isSelected()){
-                			  totalNoodles = totalNoodles | ((long)1<<btn);
+                			  totalNoodles = totalNoodles | (1<<btn);
                 			  noodles+=1;
                 			  noodlePoints += 6;
                 			  }
                 			  else{
-                			  totalNoodles = totalNoodles &~ ((long)1<<btn); 
+                			  totalNoodles = totalNoodles &~ (1<<btn); 
                 			  noodles -= 1;
                 			  noodlePoints -= 6;
                 			  }
@@ -1091,12 +1092,12 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                 			  btn = counter;
                 			  
                 			  if ( panel_1.noodleList.get(counter).isSelected()){
-                			  totalNoodlesBack = totalNoodlesBack | ((long)1<<btn);
+                			  totalNoodlesBack = totalNoodlesBack | (1<<btn);
                 			  noodles+=1;
                 			  noodlePoints += 6;
                 			  }
                 			  else{
-                			  totalNoodlesBack = totalNoodlesBack &~ ((long)1<<btn); 
+                			  totalNoodlesBack = totalNoodlesBack &~ (1<<btn); 
                 			  noodles -= 1;
                 			  noodlePoints -= 6;
                 			  }
@@ -1346,6 +1347,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          totePoints = 0;
          containerPoints = 0;
          noodlePoints = 0;
+         noodles = 0;
          
          totalContainerHeight = 0;
          totalTotes = 0;
@@ -1364,6 +1366,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          landFillNoodles = 0;
          avgContainerHeight = 0;
          recycleBins = 0;
+         
+         totalNoodles = 0;
+         totalNoodlesBack =0;
          
          
          

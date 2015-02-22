@@ -398,6 +398,8 @@ public class Host extends JFrame {
 	            CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
 	            CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
 	            CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
+	            CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
+	            CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
 	            CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
 	            CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
 	            CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
@@ -411,6 +413,7 @@ public class Host extends JFrame {
 	            }
 	            
 	            CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
+	            CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
 	            
 	            try {
 	            	CopyOfGUIScoutstatic.sql.run();

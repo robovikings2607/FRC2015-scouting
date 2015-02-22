@@ -37,6 +37,8 @@ public class SQLiteTest{
   String takesFromLandFill;
   String knockedOverContainers;
   String knockedOverTotes;
+  int noodleNumberForward;
+  int noodleNumberBack;
   boolean firstTime = false;
   
   
@@ -66,7 +68,7 @@ public void run() throws Exception {
 				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
 				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
 				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
-				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT);");
+				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT);");
 		  firstTime = false;
 	  } 
   } else {
@@ -86,10 +88,10 @@ public void run() throws Exception {
 				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
 				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
 				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
-				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT);");
+				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT);");
   }
   // inserting data
-  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
   prep.setInt(1, matchNumber);
   prep.setString(2, scouterName);
@@ -129,6 +131,8 @@ public void run() throws Exception {
   prep.setInt(36, containerHeightsBack[4]);
   prep.setInt(37, containerHeightsBack[5]);
   prep.setInt(38, containerHeightsBack[6]);
+  prep.setInt(39, noodleNumberForward);
+  prep.setInt(40, noodleNumberBack);
   
 
   prep.execute();
@@ -259,6 +263,10 @@ public void setAverageContainerHeight(int avgContainerHeight){
 public void setContainerHeights(int[] containerHeightsForward, int[] containerHeightsBack){
 	this.containerHeightsForward = containerHeightsForward;
 	this.containerHeightsBack = containerHeightsBack;
+}
+public void setNoodleNumber(int totalNoodles, int totalNoodlesBack){
+	noodleNumberForward = totalNoodles;
+	noodleNumberBack = totalNoodlesBack;
 }
 
   /**
