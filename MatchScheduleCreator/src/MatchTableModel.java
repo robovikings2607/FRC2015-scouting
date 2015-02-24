@@ -1,60 +1,30 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
-public class ScheduleViewerTest extends JFrame {
-
-	private JPanel contentPane;
-	private JScrollPane scrollPane;
-	JTable schedule;
-	MyTableModel model = new MyTableModel();
-
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
-	public ScheduleViewerTest() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 523, 470);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JPanel SchedulePanel = new JPanel();
-		contentPane.add(SchedulePanel, BorderLayout.CENTER);
-		
-		scrollPane = new JScrollPane();
-		SchedulePanel.add(scrollPane);
-		
-		schedule = new JTable(model);
-		scrollPane.setViewportView(schedule);
-	}
-
-}
-
-class MyTableModel extends AbstractTableModel {
-    private String[] columnNames = {""};
+public class MatchTableModel extends AbstractTableModel {
+	private String[] columnNames = {""};
     private Object[][] data = {{""}}; 
     
-    MyTableModel(){
+    List<Color> rowColours = Arrays.asList(
+            Color.RED,
+            Color.GREEN,
+            Color.CYAN
+    );
+    
+    MatchTableModel(){
     	
     }
 
-    MyTableModel(Object[][] mData, String[] mColumnNames){
+    MatchTableModel(Object[][] mData, String[] mColumnNames){
     	columnNames = mColumnNames;
     	data = mData;
     	
@@ -78,7 +48,15 @@ class MyTableModel extends AbstractTableModel {
     }
 
     public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
+        Class returnValue;
+        
+        if ((c >= 0) && (c < getColumnCount())) {
+          returnValue = getValueAt(0, c).getClass();
+        } else {
+          returnValue = Object.class;
+        }
+        
+        return returnValue;
     }
 
     /*
@@ -114,4 +92,10 @@ class MyTableModel extends AbstractTableModel {
     public void highlightCell(int row, int column){
     	
     }
+
+    public void setRowColour(int row, Color c) {
+        rowColours.set(row, c);
+        fireTableRowsUpdated(row, row);
+    }
+    
 }

@@ -1,9 +1,15 @@
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.DefaultRowSorter;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.frc2834.bluealliance.v1.BlueAlliance;
 import org.frc2834.bluealliance.v1.matches.Match;
@@ -14,48 +20,34 @@ public class Creator {
 
 	public static void main(String[] args) {
 		try {
-			ArrayList<List<String>> y = getMatchList("2014pahat");
-
+			ArrayList<List<Integer>> y = getMatchList("2014pahat");
 			
 			CSVHandler.writeArrayToFile(y);
 			
-			ArrayList<List<String>> z = CSVHandler.readToArray("Schedule.csv");
+			ScheduleViewerFrame f = new ScheduleViewerFrame();
 			
-			for(List<String> x : z){
-				System.out.println(x.toString());
-			}
+			f.openScheduleWindow("Schedule.csv");
 			
-			ArrayList<List<String>> rawData;
-			rawData = CSVHandler.readToArray("Schedule.csv");
-			
-			String[][] data = new String[rawData.size()][rawData.get(0).size()];
-			
-			for (int i = 0; i < data.length; i++){
-				data[i] = (String[]) rawData.get(i).toArray();
-			}
-			
-			ScheduleViewerTest frame = new ScheduleViewerTest();
-			
-			frame.model.setData(data, new String[] {"Match", "Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3"});
-			frame.setVisible(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public static ArrayList<List<String>> getMatchList(String code) throws IOException{
-		ArrayList<List<String>> table = new ArrayList<List<String>>();
+	public static ArrayList<List<Integer>> getMatchList(String code) throws IOException{
+		ArrayList<List<Integer>> table = new ArrayList<List<Integer>>();
 		
 		List<Match> y = b.getMatchList(code);
 		for (Match x : y){
-			table.add(Arrays.asList(new String[] {x.getKey().split("_")[1],
-				x.getAlliances().get("red").getTeams()[0],
-				x.getAlliances().get("red").getTeams()[1],
-				x.getAlliances().get("red").getTeams()[2],
-				x.getAlliances().get("blue").getTeams()[0],
-				x.getAlliances().get("blue").getTeams()[1],
-				x.getAlliances().get("blue").getTeams()[2]}));
+			if (x.getKey().split("_")[1].contains("qm")){
+				table.add(Arrays.asList(new Integer[] {Integer.valueOf(x.getKey().split("_")[1].replace("qm", "")),
+					Integer.valueOf(x.getAlliances().get("red").getTeams()[0].replace("frc", "")),
+					Integer.valueOf(x.getAlliances().get("red").getTeams()[1].replace("frc", "")),
+					Integer.valueOf(x.getAlliances().get("red").getTeams()[2].replace("frc", "")),
+					Integer.valueOf(x.getAlliances().get("blue").getTeams()[0].replace("frc", "")),
+					Integer.valueOf(x.getAlliances().get("blue").getTeams()[1].replace("frc", "")),
+					Integer.valueOf(x.getAlliances().get("blue").getTeams()[2].replace("frc", ""))}));
+			}
 		}
 		return table;
 		

@@ -15,11 +15,11 @@ public class CSVHandler {
 		
 	}
 	
-	public static void writeArrayToFile(ArrayList<List<String>> input) throws FileNotFoundException, UnsupportedEncodingException{
+	public static <T> void writeArrayToFile(ArrayList<List<T>> input) throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("Schedule.csv", "UTF-8");
 		
-		for (List<String> y : input){
-			for (String z : y){
+		for (List<T> y : input){
+			for (Object z : y){
 				writer.print(z.toString() + ",");
 			}
 			writer.print("\n");
@@ -28,17 +28,17 @@ public class CSVHandler {
 		writer.close();
 	}
 	
-	public static ArrayList<List<String>> readToArray(String fileToRead) throws IOException{
-		ArrayList<List<String>> arr = new ArrayList<List<String>>();
+	public static ArrayList<List<Object>> readToArray(String fileToRead) throws IOException{
+		ArrayList<List<Object>> arr = new ArrayList<List<Object>>();
 		FileReader lowerReader = new FileReader(fileToRead);
 		BufferedReader reader = new BufferedReader(lowerReader);
 		
 		String s;
 		while((s = reader.readLine()) != null){
-			List<String> l = Arrays.asList(s.split(","));
-			for (int i = 0; i < l.size(); i++){
-				l.set(i, l.get(i).replace("frc", ""));
-			}
+			List<Object> l = Arrays.asList(s.split(","));
+//			for (int i = 0; i < l.size(); i++){
+//				l.set(i, l.get(i).replace("frc", ""));
+//			}
 			arr.add(l);
 		}
 		
