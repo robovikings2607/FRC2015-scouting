@@ -3,6 +3,7 @@ import java.awt.Color;
 
 
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -201,6 +202,15 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
       static Color containerColors[] = {Color.green, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray, Color.lightGray};
       static int containerHeight[] = {0,0,0,0,0,0,0};
       static int containerHeightBack[] = {0,0,0,0,0,0,0};
+	private static JSpinner middleContainersSpinner;
+	private static int middleContainers;
+	private static JLabel middleContainersLabel;
+	private static JSpinner knockedOverStacksSpinner;
+	private static JLabel knockedOverStacksLabel;
+	private static int knockedOverStacks;
+	private static JSpinner autoCenterContainersSpinner;
+	private static JLabel autoCenterContainersLabel;
+	private static int autoCenterContainers;
       
 	/**
 	 * Launch the application.
@@ -428,7 +438,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		txtrGeneralNotes.setBackground(new Color(204, 204, 204));
 		txtrGeneralNotes.setFont(new Font("Arial", Font.PLAIN, 13));
 		txtrGeneralNotes.setText("General Notes");
-		txtrGeneralNotes.setBounds(10, 70, 287, 72);
+		txtrGeneralNotes.setBounds(10, 70, 235, 72);
 		frame.getContentPane().add(txtrGeneralNotes);
 		gameNotes = "";
 		
@@ -458,10 +468,57 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 			}	
 		});
 		
+		middleContainersSpinner = new JSpinner();
+		middleContainersSpinner.setForeground(new Color(204, 204, 255));
+		middleContainersSpinner.setBackground(new Color(204, 204, 204));
+		middleContainersSpinner.setBounds(72, 197, 46, 33);
+		middleContainersSpinner.setValue(0);
+		frame.getContentPane().add(middleContainersSpinner);
+		middleContainers = Integer.parseInt(middleContainersSpinner.getValue().toString());
+		middleContainers = 0;
+		
+		middleContainersSpinner.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent q) {
+				middleContainers = Integer.parseInt(middleContainersSpinner.getValue().toString());
+				System.out.println("Number of totes moved: " + middleContainers);	
+				
+			}	
+		});
+		
+		middleContainersLabel = new JLabel("<html> Bins<> from step<>");
+		middleContainersLabel.setFont(new Font("Arial", Font.BOLD, 11));
+		middleContainersLabel.setBounds(10, 192, 60, 43);
+		frame.add(middleContainersLabel);
+		
+		knockedOverStacksSpinner = new JSpinner();
+		knockedOverStacksSpinner.setForeground(new Color(204, 204, 255));
+		knockedOverStacksSpinner.setBackground(new Color(204, 204, 204));
+		knockedOverStacksSpinner.setBounds(72, 250, 46, 33);
+		knockedOverStacksSpinner.setValue(0);
+		frame.getContentPane().add(knockedOverStacksSpinner);
+		knockedOverStacks = Integer.parseInt(knockedOverStacksSpinner.getValue().toString());
+		knockedOverStacks = 0;
+		
+		knockedOverStacksSpinner.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent q) {
+				knockedOverStacks = Integer.parseInt(knockedOverStacksSpinner.getValue().toString());
+				System.out.println("Number of stacks knocked over: " + knockedOverStacks);	
+				
+			}	
+		});
+		
+		knockedOverStacksLabel = new JLabel("<html> Knocked<> over stacks<>");
+		knockedOverStacksLabel.setFont(new Font("Arial", Font.BOLD, 11));
+		knockedOverStacksLabel.setBounds(10, 245, 60, 43);
+		frame.add(knockedOverStacksLabel);
+		
+		
 		spinner_landFillNoodles = new JSpinner();
 		spinner_landFillNoodles.setForeground(new Color(204, 204, 255));
 		spinner_landFillNoodles.setBackground(new Color(204, 204, 204));
-		spinner_landFillNoodles.setBounds(72, 143, 46, 33);
+		spinner_landFillNoodles.setBounds(72, 148, 46, 33);
 		spinner_landFillNoodles.setValue(0);
 		frame.getContentPane().add(spinner_landFillNoodles);
 		landFillNoodles = Integer.parseInt(spinner_landFillNoodles.getValue().toString());
@@ -475,9 +532,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 			}	
 		});
 		
-		lblNewLabel_2 = new JLabel("# of totes ");
+		lblNewLabel_2 = new JLabel("<html> Totes moved<> to auto<> ");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 11));
-		lblNewLabel_2.setBounds(10, 344, 62, 24);
+		lblNewLabel_2.setBounds(10, 337, 70, 40);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		label_landFillNoodles = new JLabel("<html> Landfill<> Noodles<>");
@@ -501,10 +558,31 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 			}	
 		});
 		
-		lblOfBins = new JLabel("# of bins\r\n");
+		lblOfBins = new JLabel("<html> Bins moved<> to auto<>");
 		lblOfBins.setFont(new Font("Arial", Font.BOLD, 11));
-		lblOfBins.setBounds(10, 393, 62, 24);
+		lblOfBins.setBounds(10, 385, 65, 40);
 		frame.getContentPane().add(lblOfBins);
+		
+		autoCenterContainersSpinner = new JSpinner();
+		autoCenterContainersSpinner.setForeground(new Color(204, 204, 255));
+		autoCenterContainersSpinner.setBackground(new Color(204, 204, 204));
+		autoCenterContainersSpinner.setBounds(72, 435, 46, 33);
+		frame.getContentPane().add(autoCenterContainersSpinner);
+		autoCenterContainers = Integer.parseInt(autoCenterContainersSpinner.getValue().toString());
+		
+		autoCenterContainersSpinner.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent q) {
+				autoCenterContainers = Integer.parseInt(autoCenterContainersSpinner.getValue().toString());
+				System.out.println("Number of bins moved: " + autoCenterContainers);	
+				
+			}	
+		});
+		
+		autoCenterContainersLabel = new JLabel("<html> Bins<> from step<>");
+		autoCenterContainersLabel.setFont(new Font("Arial", Font.BOLD, 11));
+		autoCenterContainersLabel.setBounds(10, 433, 65, 40);
+		frame.getContentPane().add(autoCenterContainersLabel);
 		
 		chckbxNewCheckBox = new JCheckBox("Absent?");
 		chckbxNewCheckBox.setBackground(new Color(204, 204, 204));
@@ -575,7 +653,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chkbxknockedOverContainers = new JCheckBox("Containers");
 		chkbxknockedOverContainers.setBackground(new Color(204, 204, 204));
 		chkbxknockedOverContainers.setFont(new Font("Arial", Font.BOLD, 11));
-		chkbxknockedOverContainers.setBounds(10, 238, 90, 23);
+		chkbxknockedOverContainers.setBounds(265, 100, 90, 23);
 		frame.getContentPane().add(chkbxknockedOverContainers);
 		chkbxknockedOverContainers.setActionCommand("knockedContainers");
 		knockedOverContainters = "no";
@@ -583,7 +661,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chkbxknockedOverTotes = new JCheckBox("Totes");
 		chkbxknockedOverTotes.setBackground(new Color(204, 204, 204));
 		chkbxknockedOverTotes.setFont(new Font("Arial", Font.BOLD, 11));
-		chkbxknockedOverTotes.setBounds(10, 268, 90, 23);
+		chkbxknockedOverTotes.setBounds(265, 130, 90, 23);
 		frame.getContentPane().add(chkbxknockedOverTotes);
 		chkbxknockedOverTotes.setActionCommand("knockedTotes");
 		knockedOverTotes = "no";
@@ -686,11 +764,12 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		driveField.setBounds(795, 17, 20, 23);
 		driveField.setBackground(new Color(204, 204, 204));
 		frame.getContentPane().add(driveField);
+		driveField.setText("E");
 		
 		driveField.addFocusListener(new FocusAdapter() {
              public void focusLost(FocusEvent e) {
                 // should be editable only when disconnected
-                drive = driveField.getText();
+                drive = driveField.getText().toUpperCase();
                 System.out.println(drive);
              }  
          }
@@ -763,6 +842,45 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
+					 sql.setFileName("C" + ":" + "Client");
+	                  sql.setTableName(tableName);
+	                 sql.setScouterName(name);
+	                  sql.setMatchNumber(matchNumber); 
+	                  sql.setTeamNumber(teamNumber);
+	                  sql.setTotalStackNumber(totalTotes, totalTotesBack);
+	                  sql.setPoints(pointsScored);
+	                  sql.setNoodles(noodles);
+	                  sql.setRecycleBins(recycleBins, totalContainerHeight);
+	                  sql.setTotes(totes);
+	                  sql.setNotes(gameNotes);
+	                  sql.setAbsent(absent);
+	                  sql.setCoopertitionStacked(coopertitionStacked);
+	                  sql.setDidNothing(didNothing);
+	                  sql.setTakesFromHumanPlayer(takesFromHumanPlayer);
+	                  sql.setAutoTotesStacked(autoTotesStacked);
+	                  sql.setMadeItToAutoZone(autoZone);
+	                  sql.setBroken(esBroken);
+	                  sql.setAutoTotesMoved(autoTotesMoved);
+	                  sql.setAutoBinsMoved(autoBinsMoved);
+	                  sql.setLandFillNoodles(landFillNoodles);
+	                  sql.setTakesFromLandFill(takesFromLandFill);
+	                  sql.setPickedUpKnockedOverContainers(knockedOverContainters);
+	                  sql.setPickedUpKnockedOverTotes(knockedOverTotes);
+	                  sql.setContainerHeights(containerHeight, containerHeightBack);
+	                  sql.setNoodleNumber(totalNoodles, totalNoodlesBack);
+	                  
+	                  
+	                  
+	                  System.out.println("Total Points Scored: " + pointsScored);
+	                  
+	                  
+						try {
+							sql.run();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				
                   reset();
                }
@@ -820,7 +938,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		frame.getContentPane().add(connectButton);
 		 connectButton.setMnemonic(KeyEvent.VK_C);
 	      connectButton.setActionCommand("connect");
-	      connectButton.setEnabled(true);
+	      connectButton.setEnabled(false);
+	      connectButton.setVisible(false);
 	      
 		
 		disconnectButton = new JButton("Disconnect");
@@ -832,9 +951,10 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		disconnectButton.setMnemonic(KeyEvent.VK_D);
 	      disconnectButton.setActionCommand("disconnect");
 	      disconnectButton.setEnabled(false);
+	      disconnectButton.setVisible(false);
 		
 		txtNotConnected = new JTextField();
-		txtNotConnected.setEnabled(true);
+		txtNotConnected.setEnabled(false);
 		txtNotConnected.setEditable(false);
 		txtNotConnected.setFont(new Font("Arial", Font.BOLD, 12));
 		txtNotConnected.setBackground(Color.RED);
@@ -842,13 +962,16 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		txtNotConnected.setBounds(205, 505, 161, 43);
 		frame.getContentPane().add(txtNotConnected);
 		txtNotConnected.setColumns(10);
+		txtNotConnected.setVisible(false);
 		
 		rdbtnNewRadioButton = new JRadioButton("Host\r\n");
 		rdbtnNewRadioButton.setBackground(Color.LIGHT_GRAY);
-		rdbtnNewRadioButton.setBounds(-2, 450, 72, 49);
+		rdbtnNewRadioButton.setBounds(-2, 455, 72, 49);
 		frame.getContentPane().add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setMnemonic(KeyEvent.VK_H);
 		rdbtnNewRadioButton.setActionCommand("host");
+		rdbtnNewRadioButton.setEnabled(false);
+		rdbtnNewRadioButton.setVisible(false);
 		
 		
 		rdbtnClient = new JRadioButton("Client");
@@ -857,9 +980,11 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		frame.getContentPane().add(rdbtnClient);
 		rdbtnClient.setMnemonic(KeyEvent.VK_G);
 		rdbtnClient.setActionCommand("guest");
+		rdbtnClient.setEnabled(false);
+		rdbtnClient.setVisible(false);
 		
 		pickedUpKnockedOver = new JLabel("<html> Picked up<> knocked over<>");
-		pickedUpKnockedOver.setBounds(10, 165, 89, 100);
+		pickedUpKnockedOver.setBounds(270, 30, 89, 100);
 		frame.getContentPane().add(pickedUpKnockedOver);
 		
 		
@@ -867,7 +992,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setBounds(142, 455, 133, 49);
+		btnNewButton.setBounds(0, 500, 133, 49);
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.setActionCommand("I'm the Host");
 		
@@ -1338,6 +1463,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          spinner.setValue(0);
          spinner_1.setValue(0);
          spinner_landFillNoodles.setValue(0);
+         middleContainersSpinner.setValue(0);
+         knockedOverStacksSpinner.setValue(0);
+         autoCenterContainersSpinner.setValue(0);
          
          matchNumber += 1;
          textField.setText("");
@@ -1370,6 +1498,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          totalNoodles = 0;
          totalNoodlesBack =0;
          
+         knockedOverStacks = 0;
+         middleContainers = 0;
+         autoCenterContainers = 0;
          
          
 
