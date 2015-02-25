@@ -9,7 +9,7 @@ public class Stack {
 	private int columnIndex;
 	private int height;
 	private int numberOfTotes;
-	private int points;
+	//private int points;
 	private int toteNumber;
 	private int containerHeight;
 	private int noodleNumber;
@@ -64,6 +64,8 @@ public class Stack {
 	}
 	
 	public int getNumberOfTotes(){
+		numberOfTotes = 0; //why all these global variables?
+		
 		for(int i = 0; i < getDecoded().length; i ++){
 			if (getDecoded()[i] == true)
 				numberOfTotes += 1;
@@ -73,18 +75,19 @@ public class Stack {
 	}
 	
 	public int getPointsForWholeStack(){
-		points = (getNumberOfTotes() * 2) + (getContainerHeight() * 4) + (6 * noodle) ;
-		return points;
+		return (getNumberOfTotes() * 2) + (getContainerHeight() * 4) + (6 * getNoodle()) ;
 	}
 	
 	public int getPointsForCan(){
-		points = (getContainerHeight() * 4) ;
-		return points;
+		return (getContainerHeight() * 4) ;
 	}
 	
 	public int getPointsForTotes(){
-		points = (getNumberOfTotes() * 2) ;
-		return points;
+		return (getNumberOfTotes() * 2);
+	}
+	
+	public int getPointsForNoodle(){
+		return (6 * getNoodle()) ;
 	}
 	
 	public int getHeight(){

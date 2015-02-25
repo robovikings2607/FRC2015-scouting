@@ -19,9 +19,10 @@ public class testMain {
 		ArrayList<Team> teams = getTeamArrayWithData(teamList, stat);
 
 		for (Team team : teams){
-			System.out.println(team.getMatch(1).getStack(7).getHeight());
-			System.out.println(team.getMatch(1).getStack(7).getNoodle());
-			System.out.println(team.getMatch(2).getStack(1).getPointsForWholeStack());
+			System.out.println(team.getMatch(1).getStack(7).getPointsForTotes());
+			System.out.println(team.getMatch(1).getStack(7).getPointsForNoodle());
+			System.out.println(team.getMatch(1).getStack(7).getPointsForCan());
+			System.out.println(team.getMatch(1).getStack(7).getPointsForWholeStack());
 		}
 	}
 
