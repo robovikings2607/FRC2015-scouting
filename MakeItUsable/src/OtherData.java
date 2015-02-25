@@ -26,9 +26,9 @@ public class OtherData {
 	
 	
 
-	public OtherData(int matchNumber, int teamNumber) throws SQLException{
-		 Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
-		  Statement stat = con.createStatement();
+	public OtherData(int matchNumber, int teamNumber, Statement stat) throws SQLException{
+		 //Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
+		 // Statement stat = con.createStatement();
 		  ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
 		  
 		  while(rs.next()){
@@ -51,7 +51,7 @@ public class OtherData {
 			  }
 		  }
 		  rs.close();
-		  con.close();
+		  //con.close();
 	}
 	
 	public int getNumberOfAutoTotesMoved(){

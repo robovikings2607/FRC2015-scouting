@@ -20,14 +20,14 @@ public class Stack {
 	
 	
 	
-	public Stack(int matchNumber, int teamNumber, int columnIndex) throws Exception{
+	public Stack(int matchNumber, int teamNumber, int columnIndex, Statement stat) throws Exception{
 		  // sqlite driver
 		 
-			Class.forName("org.sqlite.JDBC");
+			//Class.forName("org.sqlite.JDBC");
 		  // database path, if it's new database,
 		  // it will be created in the project folder
-		  Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
-		  stat = con.createStatement();
+		  //Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
+		  //stat = con.createStatement();
 		  ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
 		  this.matchNumber = matchNumber;
 		  this.teamNumber = teamNumber;
@@ -49,7 +49,7 @@ public class Stack {
 			  }
 		  }
 		  rs.close();
-		  con.close();
+		  //con.close();
 		  
 	}
 	
