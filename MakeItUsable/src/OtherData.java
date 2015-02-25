@@ -27,7 +27,7 @@ public class OtherData {
 	
 
 	public OtherData(int matchNumber, int teamNumber) throws SQLException{
-		 Connection con = DriverManager.getConnection("jdbc:sqlite:" + "F:Host");
+		 Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
 		  Statement stat = con.createStatement();
 		  ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
 		  

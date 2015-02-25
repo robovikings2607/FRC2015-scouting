@@ -15,7 +15,7 @@ public class Stack {
 	private int noodleNumber;
 	private int noodle;
 	private boolean[] stack = new boolean[7];
-	private boolean[] noodleArray = new boolean[14];
+	private boolean[] noodleArray = new boolean[7];
 	private BitMasking bitMasking = new BitMasking();
 	
 	
@@ -26,7 +26,7 @@ public class Stack {
 			Class.forName("org.sqlite.JDBC");
 		  // database path, if it's new database,
 		  // it will be created in the project folder
-		  Connection con = DriverManager.getConnection("jdbc:sqlite:" + "F:Host");
+		  Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
 		  stat = con.createStatement();
 		  ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
 		  this.matchNumber = matchNumber;
@@ -34,14 +34,14 @@ public class Stack {
 		  this.columnIndex = columnIndex;
 		  while(rs.next()){
 			  if(teamNumber == rs.getInt("TeamNumber") && matchNumber == rs.getInt("MatchNumber")){
-				  if (columnIndex < 7){
+				  if (columnIndex < 6){
 					  toteNumber = rs.getInt("TotalStackNumberForward");
 					  noodleNumber = rs.getInt("NoodleNumberForward");
 				  }	  
 				  else{
 					  toteNumber = rs.getInt("TotalStackNumberBack");
 					  noodleNumber = rs.getInt("NoodleNumberBack");
-					  
+					this.columnIndex = columnIndex - 6;  
 				  }
 				  
 				  containerHeight = rs.getInt(25 + columnIndex);
@@ -55,9 +55,10 @@ public class Stack {
 	
 	public boolean[] getDecoded(){
 		boolean allStacks[] = bitMasking.decodeStack(toteNumber);
+		
+		
 		for(int counter = 0; counter<stack.length;counter++){
-			int currentTote = columnIndex + counter;
-		stack[counter] = allStacks[currentTote];
+		stack[counter] = allStacks[((columnIndex * 6) + counter)]; // wrong
 		}
 		return stack;
 	}
@@ -79,8 +80,10 @@ public class Stack {
 	public int getHeight(){
 		for(int i = 1; i < getDecoded().length; i ++){
 			if (getDecoded()[i] == true)
-				height = i +1;
+				height = i + 1;
 		}
+		if (height > 6)
+			height = 0;
 		return height;
 	}
 	
