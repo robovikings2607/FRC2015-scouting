@@ -15,7 +15,7 @@ public class Redraw extends JPanel {
 	public static void main(String[] blues){
 		JFrame frame = new JFrame();
 		int[] nums = {2,4,0,1,1,1,0};
-		Redraw redraw = new Redraw((long)61503L, nums);
+		Redraw redraw = new Redraw((long)266176L, nums);
 		frame.setBounds(100,100,600,400);
 		
 		frame.getContentPane().add(redraw);
