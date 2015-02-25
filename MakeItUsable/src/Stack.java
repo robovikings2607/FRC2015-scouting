@@ -72,8 +72,18 @@ public class Stack {
 		return numberOfTotes;
 	}
 	
-	public int getPoints(){
+	public int getPointsForWholeStack(){
 		points = (getNumberOfTotes() * 2) + (getContainerHeight() * 4) + (6 * noodle) ;
+		return points;
+	}
+	
+	public int getPointsForCan(){
+		points = (getContainerHeight() * 4) ;
+		return points;
+	}
+	
+	public int getPointsForTotes(){
+		points = (getNumberOfTotes() * 2) ;
 		return points;
 	}
 	
@@ -82,7 +92,7 @@ public class Stack {
 			if (getDecoded()[i] == true)
 				height = i + 1;
 		}
-		if (height > 6)
+		if (height > 6) //Why wrap around?
 			height = 0;
 		return height;
 	}
@@ -91,7 +101,7 @@ public class Stack {
 		return containerHeight;
 	}
 	
-	public int getNoodle(){
+	public int getNoodle(){ //Shouldn't this be a boolean?
 		for (int i = 0; i < noodleArray.length; i++){
 			noodleArray[i] = (noodleNumber & ((long)Math.pow(2, i))) > 0;
 		}

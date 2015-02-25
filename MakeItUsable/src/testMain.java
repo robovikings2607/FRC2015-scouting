@@ -21,7 +21,7 @@ public class testMain {
 		for (Team team : teams){
 			System.out.println(team.getMatch(1).getStack(7).getHeight());
 			System.out.println(team.getMatch(1).getStack(7).getNoodle());
-			System.out.println(team.getMatch(2).getStack(1).getPoints());
+			System.out.println(team.getMatch(2).getStack(1).getPointsForWholeStack());
 		}
 	}
 
