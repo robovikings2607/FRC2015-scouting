@@ -1,10 +1,12 @@
 
+
 import java.awt.Color;
 
 
 import java.awt.EventQueue;
 import java.awt.Frame;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -28,6 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.SystemColor;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -52,6 +55,9 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import java.nio.file.*;
+import java.util.ArrayList;
 
 
 
@@ -103,11 +109,11 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 static JTextField textField_1;
 	 static JTextField ipField;
 	
-	 final static int NULL = 0;
-	 final static int DISCONNECTED = 1;
-	 final static int DISCONNECTING = 2;
-	 final static int  BEGIN_CONNECT = 3;
-	 final static int CONNECTED = 4;
+//	 final static int NULL = 0;
+//	 final static int DISCONNECTED = 1;
+//	 final static int DISCONNECTING = 2;
+//	 final static int  BEGIN_CONNECT = 3;
+//	 final static int CONNECTED = 4;
 	
 	 static ServerSocket hostServer = null;
 	 static Socket socket = null;
@@ -147,7 +153,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 static JRadioButton rdbtnNewRadioButton;
 	 static JRadioButton rdbtnClient;
 	 static JButton btnNewButton;
-	 static int connectionStatus = DISCONNECTED;
+	 static JButton newClientTableButton;
+	 static int connectionStatus = 0;
 	 static JLabel driveLabel;
 	 static JTextField driveField;
 	 static JCheckBox chkbxTakesFromLandFill;
@@ -174,11 +181,12 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 static SQLiteTest sql;
 
 	  final static String statusMessages[] = {
-	      " Error! Could not connect!", " Disconnected",
-	      " Disconnecting...", " Connecting...", " Connected"
+	      "Don't Panic", " Sent alright!",
+	      "Uh-oh, make sure your drive is in", "Synchronized!", "Synchronizing..."
 	   };
 	 
-	  final static String statusString = statusMessages[connectionStatus];
+	  //final static String statusString = statusMessages[connectionStatus];
+	  public static Color statusColors[] = {Color.green, Color.orange, Color.red};
 	 
 	  static JTextField txtNotConnected;
 	 
@@ -211,6 +219,11 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	private static JSpinner autoCenterContainersSpinner;
 	private static JLabel autoCenterContainersLabel;
 	private static int autoCenterContainers;
+	private static JButton syncronizeButton;
+	private static JTextField driveConnectionField;
+	private static AbstractButton checkBoxOurAuton;
+	private static String autonWeWant;
+	private static ArrayList<String> paths;
       
 	/**
 	 * Launch the application.
@@ -336,13 +349,14 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 */
 	public static void initialize() {
 		
-		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
 		frame.setBounds(100, 100, 957, 590);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Scouteroo!");
+		
+		ActionAdapter buttonListener = null;
 		
 		toolBar = new JMenuBar();
 		toolBar.setBounds(0,0,957, 15);
@@ -357,12 +371,35 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		matchScheduleButton = new JMenuItem("Match Schedule");
 		matchScheduleButton.setActionCommand("schedule");
 		menu.add(matchScheduleButton);
+		matchScheduleButton.setActionCommand("schedule");
+		
+		 buttonListener = new ActionAdapter(){
+       	  public void actionPerformed(ActionEvent e){
+       		  if (e.getActionCommand().equals("schedule")){
+       			  // add more to this later
+       			  try {
+					//sql.synchronize();
+       				  checkPaths();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+       			 
+       			  
+       		  }
+       		  
+       	  }
+         };
+		
+		
+		matchScheduleButton.addActionListener(buttonListener);
+		
 		
 		toolBar.add(menu);
 		
 		sql = new SQLiteTest();
 		
-		ActionAdapter buttonListener = null;
+		
 		
 		panel = new TeleopPanel();
 		panel.setBackground(new Color(153, 204, 255));
@@ -633,6 +670,14 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chckbxDidNothing.setActionCommand("didNothing");
 		didNothing = "no";
 		
+		checkBoxOurAuton = new JCheckBox("Has the Auton we want?");
+		checkBoxOurAuton.setBackground(new Color(204, 204, 204));
+		checkBoxOurAuton.setFont(new Font("Arial", Font.BOLD, 11));
+		checkBoxOurAuton.setBounds(149, 430, 159, 23);
+		frame.getContentPane().add(checkBoxOurAuton);
+		checkBoxOurAuton.setActionCommand("autonWeWant");
+		autonWeWant = "no";
+		
 		chckbxCoopertitionStacked = new JCheckBox("Coopertition stacked?");
 		chckbxCoopertitionStacked.setBackground(new Color(204, 204, 204));
 		chckbxCoopertitionStacked.setFont(new Font("Arial", Font.BOLD, 11));
@@ -650,7 +695,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chkbxTakesFromLandFill.setActionCommand("takesFromLandfill");
 		takesFromLandFill = "no";
 		
-		chkbxknockedOverContainers = new JCheckBox("Containers");
+		chkbxknockedOverContainers = new JCheckBox("Bins");
 		chkbxknockedOverContainers.setBackground(new Color(204, 204, 204));
 		chkbxknockedOverContainers.setFont(new Font("Arial", Font.BOLD, 11));
 		chkbxknockedOverContainers.setBounds(265, 100, 90, 23);
@@ -737,6 +782,13 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
             		   knockedOverTotes = "no";
                }
                
+               if(e.getActionCommand().equals("autonWeWant")){
+            	   if(checkBoxOurAuton.isSelected())
+            		   autonWeWant = "yes";
+            	   else
+            		   autonWeWant = "no";
+               }
+               
             }
          };
          
@@ -765,6 +817,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		driveField.setBackground(new Color(204, 204, 204));
 		frame.getContentPane().add(driveField);
 		driveField.setText("E");
+		drive = "E";
 		
 		driveField.addFocusListener(new FocusAdapter() {
              public void focusLost(FocusEvent e) {
@@ -805,7 +858,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
             	  pointsScored = totePoints + containerPoints + noodlePoints + landFillNoodles;
  
                    sql.setFileName(drive + ":" + "Client");
-                  sql.setTableName(tableName);
+                  sql.setTableName("Client_Matches");
                  sql.setScouterName(name);
                   sql.setMatchNumber(matchNumber); 
                   sql.setTeamNumber(teamNumber);
@@ -830,6 +883,12 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   sql.setPickedUpKnockedOverTotes(knockedOverTotes);
                   sql.setContainerHeights(containerHeight, containerHeightBack);
                   sql.setNoodleNumber(totalNoodles, totalNoodlesBack);
+                  sql.setContainersFromCenter(middleContainers);
+                  sql.setAutoContainersFromCenter(autoCenterContainers);
+                  sql.setKnockedOverContainers(knockedOverContainters);
+                  sql.setKnockedOverStacks(knockedOverStacks);
+                  sql.setKnockedOverTotes(knockedOverTotes);
+                  sql.setAutonWeWant(autonWeWant);
                   
                   
                   
@@ -837,14 +896,26 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   
                   
 					try {
-						sql.run();
+						sql.run();	
 					} catch (Exception e1) {
+						
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+						
+						
 					}
 					
-					 sql.setFileName("C" + ":" + "Client");
-	                  sql.setTableName(tableName);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
+					
+					
+					 sql.setFileName("C:ClientSystem");
+	                  sql.setTableName("Client_Matches");
 	                 sql.setScouterName(name);
 	                  sql.setMatchNumber(matchNumber); 
 	                  sql.setTeamNumber(teamNumber);
@@ -881,7 +952,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-				
+				  	checkPaths();
                   reset();
                }
             }
@@ -917,16 +988,38 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		IPField.setBounds(606, 21, 23, 14);
 		frame.getContentPane().add(IPField);
 		
+		btnNewButton = new JButton("Host Menu");
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setForeground(Color.BLACK);
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.setBounds(0, 500, 133, 49);
+		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setActionCommand("I'm the Host");
+		
+		newClientTableButton = new JButton("New Table");
+		newClientTableButton.setFont(new Font("Arial", Font.BOLD, 11));
+		newClientTableButton.setForeground(Color.BLACK);
+		newClientTableButton.setBackground(Color.LIGHT_GRAY);
+		newClientTableButton.setBounds(250, 500, 100, 49);
+		frame.getContentPane().add(newClientTableButton);
+		newClientTableButton.setActionCommand("newClientTable");
+		
 		comboBox = new JComboBox();
 		comboBox.setBackground(new Color(204, 204, 204));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Blue 1", "Blue 2", "Blue 3", "Red 1", "Red 2", "Red 3", "Host"}));
 		comboBox.setBounds(165, 18, 93, 20);
 		frame.getContentPane().add(comboBox);
 		colorNumber = "Blue 1";
+		btnNewButton.setEnabled(false);
 		comboBox.addItemListener(new ItemListener() {
 			 public void itemStateChanged(ItemEvent e) {
 				 colorNumber = comboBox.getSelectedItem().toString();
 		         System.out.println(colorNumber);
+		         
+		         if (colorNumber != "Host")
+		        	 btnNewButton.setEnabled(false);
+		         else 
+		        	 btnNewButton.setEnabled(true);
 		     }
 		});
 		
@@ -953,16 +1046,27 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	      disconnectButton.setEnabled(false);
 	      disconnectButton.setVisible(false);
 		
-		txtNotConnected = new JTextField();
-		txtNotConnected.setEnabled(false);
-		txtNotConnected.setEditable(false);
-		txtNotConnected.setFont(new Font("Arial", Font.BOLD, 12));
-		txtNotConnected.setBackground(Color.RED);
-		txtNotConnected.setText(statusString);
-		txtNotConnected.setBounds(205, 505, 161, 43);
-		frame.getContentPane().add(txtNotConnected);
-		txtNotConnected.setColumns(10);
-		txtNotConnected.setVisible(false);
+//		txtNotConnected = new JTextField();
+//		txtNotConnected.setEnabled(false);
+//		txtNotConnected.setEditable(false);
+//		txtNotConnected.setFont(new Font("Arial", Font.BOLD, 12));
+//		txtNotConnected.setBackground(Color.RED);
+//		txtNotConnected.setText(statusString);
+//		txtNotConnected.setBounds(205, 505, 161, 43);
+//		frame.getContentPane().add(txtNotConnected);
+//		txtNotConnected.setColumns(10);
+//		txtNotConnected.setVisible(false);
+		
+		driveConnectionField = new JTextField();
+		driveConnectionField.setEnabled(true);
+		driveConnectionField.setEditable(false);
+		driveConnectionField.setFont(new Font("Arial", Font.BOLD, 12));
+		driveConnectionField.setBackground(Color.RED);
+		driveConnectionField.setText(statusMessages[0]);
+		driveConnectionField.setBounds(0, 480, 200, 20);
+		frame.getContentPane().add(driveConnectionField);
+		driveConnectionField.setColumns(10);
+		driveConnectionField.setVisible(true);
 		
 		rdbtnNewRadioButton = new JRadioButton("Host\r\n");
 		rdbtnNewRadioButton.setBackground(Color.LIGHT_GRAY);
@@ -972,6 +1076,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		rdbtnNewRadioButton.setActionCommand("host");
 		rdbtnNewRadioButton.setEnabled(false);
 		rdbtnNewRadioButton.setVisible(false);
+		
+		
 		
 		
 		rdbtnClient = new JRadioButton("Client");
@@ -988,20 +1094,21 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		frame.getContentPane().add(pickedUpKnockedOver);
 		
 		
-		btnNewButton = new JButton("Host Menu");
-		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setBounds(0, 500, 133, 49);
-		frame.getContentPane().add(btnNewButton);
-		btnNewButton.setActionCommand("I'm the Host");
+		
+		syncronizeButton = new JButton("Synchronize");
+		syncronizeButton.setFont(new Font("Arial", Font.BOLD, 11));
+		syncronizeButton.setForeground(Color.BLACK);
+		syncronizeButton.setBackground(Color.LIGHT_GRAY);
+		syncronizeButton.setBounds(130, 500, 133, 49);
+		frame.getContentPane().add(syncronizeButton);
+		syncronizeButton.setActionCommand("synchronize");
 		
 		buttonListener = new ActionAdapter() {
             public void actionPerformed(ActionEvent e) {
-               if (connectionStatus != DISCONNECTED) {
-                  changeStatusNTS(NULL, true);
-               }
-               else {
+              // if (connectionStatus != DISCONNECTED) {
+              //changeStatusNTS(NULL, true);
+              // }
+              // else {
                   isHost = e.getActionCommand().equals("host");
 
                   // Cannot supply host IP if host option is chosen
@@ -1015,31 +1122,46 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                      ipField.setEnabled(true);
                      btnNewButton.setEnabled(false);
                   }
+                  
+                  if (e.getActionCommand().equals("newClientTable")){
+                	  sql.createNewTable();
+                  }
                }
-            }
+      //      }
          };
          
          rdbtnNewRadioButton.addActionListener(buttonListener);
          rdbtnClient.addActionListener(buttonListener);
+         newClientTableButton.addActionListener(buttonListener);
          
          buttonListener = new ActionAdapter() {
              public void actionPerformed(ActionEvent e) {
                 // Request a connection initiation
                 if (e.getActionCommand().equals("connect")) {
-                   changeStatusNTS(BEGIN_CONNECT, true);
+                   //changeStatusNTS(BEGIN_CONNECT, true);
                    System.out.println("connecting!");
                 }
                 // Disconnect
                 else {
-                   changeStatusNTS(DISCONNECTING, true);
+                  // changeStatusNTS(DISCONNECTING, true);
                    
+                }
+                
+                if (e.getActionCommand().equals("synchronize")){
+                	try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	checkPaths();
                 }
              }
           };
           
           disconnectButton.addActionListener(buttonListener);
           connectButton.addActionListener(buttonListener);
-          
+          syncronizeButton.addActionListener(buttonListener);
           
           buttonListener = new ActionAdapter(){
         	  public void actionPerformed(ActionEvent e){
@@ -1250,18 +1372,18 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
           txtYourNameHere.addFocusListener(new FocusAdapter() {
               public void focusLost(FocusEvent e) {
                  // should be editable only when disconnected
-                 if (connectionStatus != DISCONNECTED) {
-                    changeStatusNTS(NULL, true);
-                 }
-                 else {
+                // if (connectionStatus != DISCONNECTED) {
+                //    changeStatusNTS(NULL, true);
+               //  }
+               //  else {
                 	 name = txtYourNameHere.getText();
-                	 sql.setScouterName(name);
-                 }
+                	
+//                 }
               }  
-          }
+              }
            );
           
-          ipField.addFocusListener(new FocusAdapter() {
+        /*  ipField.addFocusListener(new FocusAdapter() {
               public void focusLost(FocusEvent e) {
                  ipField.selectAll();
                  // Should be editable only when disconnected
@@ -1272,13 +1394,34 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                     hostIP = ipField.getText();
                  }
               }
-           });
+           }); */
           
           ButtonGroup hostButtonGroup = new ButtonGroup();
   		hostButtonGroup.add(rdbtnClient);
   		hostButtonGroup.add(rdbtnNewRadioButton);
-		
+  		
+  		checkPaths();
 		frame.setVisible(true);
+	}
+	
+	public static void checkPaths(){
+		paths = new ArrayList<String>();
+		int i = 0;
+  		for(Path p:FileSystems.getDefault().getRootDirectories()){
+			
+			
+			paths.add(p.toString().substring(0,1));
+			if(paths.get(i).equals("D") || paths.get(i).equals("E") || paths.get(i).equals("F") || paths.get(i).equals("G") || paths.get(i).equals("H")){
+				driveConnectionField.setBackground(statusColors[0]);
+				driveConnectionField.setText(statusMessages[0]);
+			} else {
+				driveConnectionField.setBackground(statusColors[2]);
+				driveConnectionField.setText(statusMessages[2]);
+			}
+			i++;
+			
+		}
+  		
 	}
 	
 	 public static void cleanUp() {
@@ -1330,35 +1473,35 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	}
 	
 	 public void run() {
-	      switch (connectionStatus) {
-	      case DISCONNECTED:
-	         connectButton.setEnabled(true);
-	         disconnectButton.setEnabled(false);
-	         ipField.setEnabled(true);
-	         txtNotConnected.setBackground(Color.red);
-	         break;
-
-	      case DISCONNECTING:
-	         connectButton.setEnabled(false);
-	         disconnectButton.setEnabled(false);
-	         ipField.setEnabled(false);
-	         txtNotConnected.setBackground(Color.orange);
-	         break;
-
-	      case CONNECTED:
-	         connectButton.setEnabled(false);
-	         disconnectButton.setEnabled(true);
-	         ipField.setEnabled(false);
-	         txtNotConnected.setBackground(Color.green);
-	         break;
-
-	      case BEGIN_CONNECT:
-	         connectButton.setEnabled(false);
-	         disconnectButton.setEnabled(false);
-	         ipField.setEnabled(false);
-	         txtNotConnected.setBackground(Color.orange);
-	         break;
-	      }
+//	      switch (connectionStatus) {
+//	      case DISCONNECTED:
+//	         connectButton.setEnabled(true);
+//	         disconnectButton.setEnabled(false);
+//	         ipField.setEnabled(true);
+//	         txtNotConnected.setBackground(Color.red);
+//	         break;
+//
+//	      case DISCONNECTING:
+//	         connectButton.setEnabled(false);
+//	         disconnectButton.setEnabled(false);
+//	         ipField.setEnabled(false);
+//	         txtNotConnected.setBackground(Color.orange);
+//	         break;
+//
+//	      case CONNECTED:
+//	         connectButton.setEnabled(false);
+//	         disconnectButton.setEnabled(true);
+//	         ipField.setEnabled(false);
+//	         txtNotConnected.setBackground(Color.green);
+//	         break;
+//
+//	      case BEGIN_CONNECT:
+//	         connectButton.setEnabled(false);
+//	         disconnectButton.setEnabled(false);
+//	         ipField.setEnabled(false);
+//	         txtNotConnected.setBackground(Color.orange);
+//	         break;
+//	      }
 
 	      // Make sure that the button/text field states are consistent
 	      // with the internal states
@@ -1366,45 +1509,45 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	      frame.repaint();
 	   }
 	 
-	 public static void changeStatusTS(int newConnectStatus, boolean noError) {
-	      // Change state if valid state
-	      if (newConnectStatus != NULL) {
-	         connectionStatus = newConnectStatus;
-	      }
-
-	      // If there is no error, display the appropriate status message
-	      if (noError) {
-	         txtNotConnected.setText(statusMessages[connectionStatus]);
-	      }
-	      // Otherwise, display error message
-	      else {
-	    	  txtNotConnected.setText(statusMessages[NULL]);
-	      }
-
-	      // Call the run() routine (Runnable interface) on the
-	      // error-handling and GUI-update thread
-	      SwingUtilities.invokeLater(tcpObj);
-	      
-	   }
-	 public static void changeStatusNTS(int newConnectStatus, boolean noError) {
-	      // Change state if valid state
-	      if (newConnectStatus != NULL) {
-	         connectionStatus = newConnectStatus;
-	      }
-
-	      // If there is no error, display the appropriate status message
-	      if (noError) {
-	    	  txtNotConnected.setText(statusMessages[connectionStatus]);
-	      }
-	      // Otherwise, display error message
-	      else {
-	    	  txtNotConnected.setText(statusMessages[NULL]);
-	      }
-
-	      // Call the run() routine (Runnable interface) on the
-	      // current thread
-	      tcpObj.run();
-	   }
+//	 public static void changeStatusTS(int newConnectStatus, boolean noError) {
+//	      // Change state if valid state
+//	      if (newConnectStatus != NULL) {
+//	         connectionStatus = newConnectStatus;
+//	      }
+//
+//	      // If there is no error, display the appropriate status message
+//	      if (noError) {
+//	         txtNotConnected.setText(statusMessages[connectionStatus]);
+//	      }
+//	      // Otherwise, display error message
+//	      else {
+//	    	  txtNotConnected.setText(statusMessages[NULL]);
+//	      }
+//
+//	      // Call the run() routine (Runnable interface) on the
+//	      // error-handling and GUI-update thread
+//	      SwingUtilities.invokeLater(tcpObj);
+//	      
+//	   }
+//	 public static void changeStatusNTS(int newConnectStatus, boolean noError) {
+//	      // Change state if valid state
+//	      if (newConnectStatus != NULL) {
+//	         connectionStatus = newConnectStatus;
+//	      }
+//
+//	      // If there is no error, display the appropriate status message
+//	      if (noError) {
+//	    	  txtNotConnected.setText(statusMessages[connectionStatus]);
+//	      }
+//	      // Otherwise, display error message
+//	      else {
+//	    	  txtNotConnected.setText(statusMessages[NULL]);
+//	      }
+//
+//	      // Call the run() routine (Runnable interface) on the
+//	      // current thread
+//	      tcpObj.run();
+//	   }
 	 
 	 public static void reset(){
 		 
@@ -1446,6 +1589,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          takesFromLandFill = "no";
          knockedOverContainters = "no";
          knockedOverTotes = "no";
+         autonWeWant = "no";
+         
          chckbxEsBroken.setSelected(false);
          chckbxNewCheckBox_1.setSelected(false);
          chckbxNewCheckBox.setSelected(false);
@@ -1456,6 +1601,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          chkbxTakesFromLandFill.setSelected(false);
          chkbxknockedOverContainers.setSelected(false);
          chkbxknockedOverTotes.setSelected(false);
+         checkBoxOurAuton.setSelected(false);
          
          autoTotesMoved = 0;
          autoBinsMoved = 0;
@@ -1504,5 +1650,10 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          
          
 
+	 }
+	 
+	 public static ArrayList<String> getPaths(){
+		 checkPaths();
+		 return paths;
 	 }
 }

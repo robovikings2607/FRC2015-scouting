@@ -1,9 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -41,7 +43,7 @@ public class Host extends JFrame {
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JLabel driveLabel;
-	private JTextField endField;
+	private static JTextField endField;
 	private static JTextField driveField;
 	private static JButton newTableButton;
 	private static JLabel startLabel;
@@ -61,6 +63,8 @@ public class Host extends JFrame {
 	private BufferedReader in;
 	private PrintWriter out;
 	
+	static CopyOfGUIScoutstatic scout = new CopyOfGUIScoutstatic();
+	
 	  private int NULL = 0;
 	   private int DISCONNECTED = 1;
 	   private int DISCONNECTING = 2;
@@ -77,7 +81,10 @@ public class Host extends JFrame {
 	   private int connectionStatus = DISCONNECTED;
 	   private boolean isHost = true;
 	   private String statusString = statusMessages[connectionStatus];
+	private JLabel hostLabel;
+	private AbstractButton submitAllButton;
 	   private static JTextField textField_12;
+	   private static SQLiteTest sql = new SQLiteTest();
 
 
 	/**
@@ -121,7 +128,7 @@ public class Host extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblBlue = new JLabel("Blue 1");
+		/*JLabel lblBlue = new JLabel("Blue 1");
 		lblBlue.setBounds(10, 62, 46, 14);
 		contentPane.add(lblBlue);
 		
@@ -273,29 +280,44 @@ public class Host extends JFrame {
 		btnNewButton.setBackground(new Color(204, 204, 204));
 		btnNewButton.setBounds(313, 10, 111, 23);
 		contentPane.add(btnNewButton);
+		*/
+		
+		hostLabel = new JLabel("Don't Panic");
+		hostLabel.setFont(new Font("Arial", Font.BOLD, 40));
+		hostLabel.setBounds(100,1,400,200);
+		contentPane.add(hostLabel);
 		
 		newTableButton = new JButton("Create a New Table");
 		newTableButton.setBackground(new Color(204, 204, 204));
-		newTableButton.setBounds(272, 278, 152, 20);
+		newTableButton.setBounds(272, 248, 152, 20);
 		contentPane.add(newTableButton);
 		newTableButton.setActionCommand("New Table");
 		
+		submitAllButton = new JButton("Submit All!");
+		submitAllButton.setBackground(new Color(204, 204, 204));
+		submitAllButton.setBounds(272, 278, 152, 20);
+		contentPane.add(submitAllButton);
+		submitAllButton.setActionCommand("submitAll");
 		
-		textField_11 = new JTextField();
-		textField_11.setBackground(new Color(204, 204, 204));
-		textField_11.setBounds(272, 248, 152, 20);
-		contentPane.add(textField_11);
-		textField_11.setColumns(10);
+//		textField_11 = new JTextField();
+//		textField_11.setBackground(new Color(204, 204, 204));
+//		textField_11.setBounds(272, 248, 152, 20);
+//		contentPane.add(textField_11);
+//		textField_11.setColumns(10);
 		
-		JLabel lblIp = new JLabel("IP");
-		lblIp.setBounds(240, 251, 22, 14);
-		contentPane.add(lblIp);
+		//JLabel lblIp = new JLabel("IP");
+		//lblIp.setBounds(240, 251, 22, 14);
+		//contentPane.add(lblIp);
+		
+		
 		
 		textField_12 = new JTextField();
 		textField_12.setBackground(new Color(204, 204, 204));
 		textField_12.setBounds(50, 275, 86, 20);
 		contentPane.add(textField_12);
 		textField_12.setColumns(10);
+		
+		
 		
 		startLabel = new JLabel("From:");
 		startLabel.setBounds(10, 275, 45, 14);
@@ -309,23 +331,23 @@ public class Host extends JFrame {
          }
           );
 		
-		driveLabel = new JLabel();
-		driveLabel.setText("Drive:");
-		driveLabel.setBounds(10, 247, 89, 23);
-		contentPane.add(driveLabel);
-		
-		driveField = new JTextField();
-		driveField.setBackground(new Color(204, 204, 204));
-		driveField.setBounds(50, 248, 86, 20);
-		contentPane.add(driveField);
-		
-		driveField.addFocusListener(new FocusAdapter() {
-            public void focusLost(FocusEvent e) {
-               // should be editable only when disconnected
-               drive = driveField.getText();
-            }  
-        }
-         );
+//		driveLabel = new JLabel();
+//		driveLabel.setText("Drive:");
+//		driveLabel.setBounds(10, 247, 89, 23);
+//		contentPane.add(driveLabel);
+//		
+//		driveField = new JTextField();
+//		driveField.setBackground(new Color(204, 204, 204));
+//		driveField.setBounds(50, 248, 86, 20);
+//		contentPane.add(driveField);
+//		
+//		driveField.addFocusListener(new FocusAdapter() {
+//            public void focusLost(FocusEvent e) {
+//               // should be editable only when disconnected
+//               drive = driveField.getText();
+//            }  
+//        }
+//         );
 		
 		endField = new JTextField();
 		endField.setBackground(new Color(204, 204, 204));
@@ -364,72 +386,192 @@ public class Host extends JFrame {
                if(e.getActionCommand().equals("New Table")){
             	   CopyOfGUIScoutstatic.sql.createNewTable();
                }
+               if(e.getActionCommand().equals("submitAll")){
+            	   CopyOfGUIScoutstatic.sql.createNewTable();
+            	   try {
+					addAllData();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+               }
                }
 		};
 		
 		Submit.addActionListener(buttonListener);
 		newTableButton.addActionListener(buttonListener);
+		submitAllButton.addActionListener(buttonListener);
 	}
 	
 	public static void addData() throws Exception{
-		 Class.forName("org.sqlite.JDBC");
-	        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + drive + ":" + "Client"); 
-	        Statement stat = conn.createStatement();
-	        
-	        startNumber = Integer.parseInt(start);
-	        endNumber = Integer.parseInt(end);
-	         
-	        while (startNumber <= endNumber){
-	        ResultSet rs = stat.executeQuery("select * from "+ "MatchNumber_" + startNumber);
-	        while (rs.next()) {
-	            CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
-	            CopyOfGUIScoutstatic.sql.setFileName("Host");
-	            CopyOfGUIScoutstatic.sql.setTableName("AllMatches");
-	            CopyOfGUIScoutstatic.sql.setScouterName(rs.getString("ScoutName")); 
-	            CopyOfGUIScoutstatic.sql.setTeamNumber(rs.getInt("TeamNumber"));
-	            CopyOfGUIScoutstatic.sql.setPoints(rs.getInt("Points"));
-	            CopyOfGUIScoutstatic.sql.setTotalStackNumber(rs.getLong("TotalStackNumberForward"), rs.getLong("TotalStackNumberBack"));
-	            CopyOfGUIScoutstatic.sql.setTotes(rs.getInt("NumberOfTotes"));
-	            CopyOfGUIScoutstatic.sql.setNoodles(rs.getInt("NoodlesOnTopOfStacks"));
-	            CopyOfGUIScoutstatic.sql.setRecycleBins(rs.getInt("RecyclingContainers"), rs.getInt("AverageContainerHeight"));
-	            CopyOfGUIScoutstatic.sql.setNotes(rs.getString("GameNotes"));
-	            CopyOfGUIScoutstatic.sql.setAbsent(rs.getString("Absent"));
-	            CopyOfGUIScoutstatic.sql.setCoopertitionStacked(rs.getString("CoopertitionStacked"));
-	            CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
-	            CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
-	            CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
-	            CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
-	            CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
-	            CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
-	            CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
-	            CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
-	            CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
-	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
-	            CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
-	            
-	            for(int counter = 0; counter < containerHeightsForward.length; counter ++){
-	            	containerHeightsForward[counter] = rs.getInt(25 + counter);
-	            	containerHeightsBack[counter] = rs.getInt(32 + counter);
-	            }
-	            
-	            CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
-	            CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
-	            
-	            try {
-	            	CopyOfGUIScoutstatic.sql.run();
-				} catch (Exception e) {
+		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){
+			 Class.forName("org.sqlite.JDBC"); 
+		        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + scout.getPaths().get(i) + ":" + "Client"); 
+		        System.out.println(scout.getPaths().get(i));
+		        Statement stat = conn.createStatement();
+		        
+		        startNumber = Integer.parseInt(start);
+		        endNumber = Integer.parseInt(end);
+		        
+		        ResultSet rs = null;
+				try {
+					rs = stat.executeQuery("select * from "+ "Client_Matches");
+					
+				} catch (NullPointerException e1) {	
+					
+				}
+				catch (SQLException e1) {	
+					
+				}
+		        try {
+					while (rs.next() && startNumber <= endNumber) {
+					    CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
+					    CopyOfGUIScoutstatic.sql.setFileName("Host");
+					    CopyOfGUIScoutstatic.sql.setTableName("AllMatches");
+					    CopyOfGUIScoutstatic.sql.setScouterName(rs.getString("ScoutName")); 
+					    CopyOfGUIScoutstatic.sql.setTeamNumber(rs.getInt("TeamNumber"));
+					    CopyOfGUIScoutstatic.sql.setPoints(rs.getInt("Points"));
+					    CopyOfGUIScoutstatic.sql.setTotalStackNumber(rs.getLong("TotalStackNumberForward"), rs.getLong("TotalStackNumberBack"));
+					    CopyOfGUIScoutstatic.sql.setTotes(rs.getInt("NumberOfTotes"));
+					    CopyOfGUIScoutstatic.sql.setNoodles(rs.getInt("NoodlesOnTopOfStacks"));
+					    CopyOfGUIScoutstatic.sql.setRecycleBins(rs.getInt("RecyclingContainers"), rs.getInt("AverageContainerHeight"));
+					    CopyOfGUIScoutstatic.sql.setNotes(rs.getString("GameNotes"));
+					    CopyOfGUIScoutstatic.sql.setAbsent(rs.getString("Absent"));
+					    CopyOfGUIScoutstatic.sql.setCoopertitionStacked(rs.getString("CoopertitionStacked"));
+					    CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
+					    CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
+					    CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
+					    CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
+					    CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
+					    CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
+					    CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
+					    CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
+					    CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
+					    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
+					    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+					    
+					    for(int counter = 0; counter < containerHeightsForward.length; counter ++){
+					    	containerHeightsForward[counter] = rs.getInt(25 + counter);
+					    	containerHeightsBack[counter] = rs.getInt(32 + counter);
+					    }
+					    
+					    CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
+					    CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
+					    CopyOfGUIScoutstatic.sql.setKnockedOverContainers(rs.getString(41));
+					    CopyOfGUIScoutstatic.sql.setKnockedOverTotes(rs.getString(42));
+					    CopyOfGUIScoutstatic.sql.setAutonWeWant(rs.getString(43));
+					    CopyOfGUIScoutstatic.sql.setContainersFromCenter(rs.getInt(44));
+					    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
+					    
+					    try {
+					    	CopyOfGUIScoutstatic.sql.run();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					    
+					    
+					}
+				
+		        
+		        startNumber +=1; 
+		       
+		        
+		        rs.close();
+		        conn.close();
+		        } catch (NullPointerException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	            
-	            
-	        }
+
+		        } 
+		
 	        
-	        startNumber +=1;  
+	        
+	        
+} 
+	
+	        
+	public static void addAllData() throws Exception {
+		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){
+		 Class.forName("org.sqlite.JDBC"); 
+	        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + scout.getPaths().get(i) + ":" + "Client"); 
+	        System.out.println(scout.getPaths().get(i));
+	        Statement stat = conn.createStatement();
+	        
+	        
+	        ResultSet rs = null;
+			try {
+				rs = stat.executeQuery("select * from "+ "Client_Matches");
+				
+			} catch (NullPointerException e1) {	
+				
+			}
+			catch (SQLException e1) {	
+				
+			}
+	        try {
+				while (rs.next()) {
+				    CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
+				    CopyOfGUIScoutstatic.sql.setFileName("Host");
+				    CopyOfGUIScoutstatic.sql.setTableName("AllMatches");
+				    CopyOfGUIScoutstatic.sql.setScouterName(rs.getString("ScoutName")); 
+				    CopyOfGUIScoutstatic.sql.setTeamNumber(rs.getInt("TeamNumber"));
+				    CopyOfGUIScoutstatic.sql.setPoints(rs.getInt("Points"));
+				    CopyOfGUIScoutstatic.sql.setTotalStackNumber(rs.getLong("TotalStackNumberForward"), rs.getLong("TotalStackNumberBack"));
+				    CopyOfGUIScoutstatic.sql.setTotes(rs.getInt("NumberOfTotes"));
+				    CopyOfGUIScoutstatic.sql.setNoodles(rs.getInt("NoodlesOnTopOfStacks"));
+				    CopyOfGUIScoutstatic.sql.setRecycleBins(rs.getInt("RecyclingContainers"), rs.getInt("AverageContainerHeight"));
+				    CopyOfGUIScoutstatic.sql.setNotes(rs.getString("GameNotes"));
+				    CopyOfGUIScoutstatic.sql.setAbsent(rs.getString("Absent"));
+				    CopyOfGUIScoutstatic.sql.setCoopertitionStacked(rs.getString("CoopertitionStacked"));
+				    CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
+				    CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
+				    CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
+				    CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
+				    CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
+				    CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
+				    CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
+				    CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
+				    CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
+				    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
+				    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+				    
+				    for(int counter = 0; counter < containerHeightsForward.length; counter ++){
+				    	containerHeightsForward[counter] = rs.getInt(25 + counter);
+				    	containerHeightsBack[counter] = rs.getInt(32 + counter);
+				    }
+				    
+				    CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
+				    CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
+				    CopyOfGUIScoutstatic.sql.setKnockedOverContainers(rs.getString(41));
+				    CopyOfGUIScoutstatic.sql.setKnockedOverTotes(rs.getString(42));
+				    CopyOfGUIScoutstatic.sql.setAutonWeWant(rs.getString(43));
+				    CopyOfGUIScoutstatic.sql.setContainersFromCenter(rs.getInt(44));
+				    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
+				    
+				    try {
+				    	CopyOfGUIScoutstatic.sql.run();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+				    
+				}
+			
+	       
+	        
 	        rs.close();
-	        }
 	        conn.close();
-	        
-	        
+	        } catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        conn.close();
+	        } 
+		
 	}
+	
+	
 }

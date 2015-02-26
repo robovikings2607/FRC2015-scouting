@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
  
 public class SQLiteTest{
@@ -44,6 +45,12 @@ public class SQLiteTest{
   
   String namedFile = "scoutdb.db";
   String scouterName;
+private String knockedContainers;
+private String knockedTotes;
+private String autonWeWant;
+private int containersFromCenter;
+private int autoContainersFromCenter;
+private int knockedStacks;
 public void run() throws Exception {
  
 	
@@ -53,7 +60,7 @@ public void run() throws Exception {
   // it will be created in the project folder
   con = DriverManager.getConnection("jdbc:sqlite:" + namedFile);
   Statement stat = con.createStatement();
-  if (tableName == "AllMatches"){
+
 	  
 	  if (firstTime){
 		  stat.executeUpdate("drop table if exists " + tableName);
@@ -68,30 +75,32 @@ public void run() throws Exception {
 				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
 				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
 				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
-				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT);");
+				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT," +
+				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT);");
 		  firstTime = false;
-	  } 
+	  
   } else {
-  stat.executeUpdate("drop table if exists " + tableName);
-  
-  
-  //creating table
-  
-  stat.executeUpdate("create table " + tableName +"(MatchNumber integer,"
-    + "ScoutName varchar(30)," + "TeamNumber INT," + "Points INT," + "TotalStackNumberForward integer," + "TotalStackNumberBack integer," +  
-		   "NumberOfTotes INT," +
-		  "RecyclingContainers INT," + "AverageContainerHeight INT," + "NoodlesOnTopOfStacks INT," + "GameNotes varchar(30)," +
-		   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," +
-		   "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
-		  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + 
-				   "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT," + "HeightOfContainerInColumnOneForward INT," +
-				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
-				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
-				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
-				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT);");
+//  stat.executeUpdate("drop table if exists " + tableName);
+//  
+//  
+//  //creating table
+//  
+//  stat.executeUpdate("create table " + tableName +"(MatchNumber integer,"
+//    + "ScoutName varchar(30)," + "TeamNumber INT," + "Points INT," + "TotalStackNumberForward integer," + "TotalStackNumberBack integer," +  
+//		   "NumberOfTotes INT," +
+//		  "RecyclingContainers INT," + "AverageContainerHeight INT," + "NoodlesOnTopOfStacks INT," + "GameNotes varchar(30)," +
+//		   "EsBroken varchar(30)," + "TakesFromHumanPlayer varchar(30)," + "TakesFromLandfill varchar(30)," + "PickedUpKnockedOverContainers varchar(30)," +
+//		   "PickedUpKnockedOverTotes varchar(30)," + "MadeItToAutoZone varchar(30)," + "AutoTotesMoved INT," +
+//		  "StackedAllThreeAutonTotes varchar(30)," + "AutoRecyclingContainersMoved INT," + "DidNothing varchar(30)," + "Absent varchar(30)," + 
+//				   "CoopertitionStacked varchar(30)," + "NoodlesPushedToLandFill INT," + "HeightOfContainerInColumnOneForward INT," +
+//				   "HeightOfContainerInColumnTwoForward INT," + "HeightOfContainerInColumnThreeForward INT," + "HeightOfContainerInColumnFourForward INT," +
+//				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
+//				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
+//				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT," +
+//				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT);");
   }
   // inserting data
-  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
   prep.setInt(1, matchNumber);
   prep.setString(2, scouterName);
@@ -133,6 +142,11 @@ public void run() throws Exception {
   prep.setInt(38, containerHeightsBack[6]);
   prep.setInt(39, noodleNumberForward);
   prep.setInt(40, noodleNumberBack);
+  prep.setString(41, knockedContainers);
+  prep.setString(42, knockedTotes);
+  prep.setString(43, autonWeWant);
+  prep.setInt(44, containersFromCenter);
+  prep.setInt(45, autoContainersFromCenter);
   
 
   prep.execute();
@@ -145,6 +159,8 @@ public void run() throws Exception {
   }
 
 }
+
+
 
 public void createNewTable(){
 	firstTime = true;
@@ -268,6 +284,115 @@ public void setNoodleNumber(int totalNoodles, int totalNoodlesBack){
 	noodleNumberForward = totalNoodles;
 	noodleNumberBack = totalNoodlesBack;
 }
+
+public void setKnockedOverContainers(String knockedContainers){
+	this.knockedContainers = knockedContainers;
+}
+
+public void setKnockedOverTotes(String knockedTotes){
+	this.knockedTotes = knockedTotes;
+}
+
+public void setAutonWeWant(String autonWeWant){
+	this.autonWeWant = autonWeWant;
+}
+
+public void setContainersFromCenter(int containersFromCenter){
+	this.containersFromCenter = containersFromCenter;
+}
+
+public void setAutoContainersFromCenter(int autoContainersFromCenter){
+	this.autoContainersFromCenter = autoContainersFromCenter;
+}
+
+public void setKnockedOverStacks(int knockedStacks){
+	this.knockedStacks = knockedStacks;
+}
+
+//public void synchronize() throws Exception{
+//	 Class.forName("org.sqlite.JDBC");
+//     Connection conn = DriverManager.getConnection("jdbc:sqlite:" + "C:ClientSystem"); 
+//     Statement stat = conn.createStatement();
+//     
+//    int startNumber = 0;
+//    int endNumber = 150;
+//     
+//     while (startNumber <= endNumber){
+//     ResultSet rs = null;
+//		try {
+//			rs = stat.executeQuery("select * from "+ "MatchNumber_" + startNumber);
+//			
+//		} catch (NullPointerException e1) {	
+//			
+//		}
+//		catch (SQLException e1) {	
+//			
+//		}
+//     try {
+//			while (rs.next()) {
+//			    CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
+//			    CopyOfGUIScoutstatic.sql.setFileName(CopyOfGUIScoutstatic.drive + ":" + "Client");
+//			    CopyOfGUIScoutstatic.sql.setTableName("MatchNumber_" + rs.getInt("MatchNumber"));
+//			    CopyOfGUIScoutstatic.sql.setScouterName(rs.getString("ScoutName")); 
+//			    CopyOfGUIScoutstatic.sql.setTeamNumber(rs.getInt("TeamNumber"));
+//			    CopyOfGUIScoutstatic.sql.setPoints(rs.getInt("Points"));
+//			    CopyOfGUIScoutstatic.sql.setTotalStackNumber(rs.getLong("TotalStackNumberForward"), rs.getLong("TotalStackNumberBack"));
+//			    CopyOfGUIScoutstatic.sql.setTotes(rs.getInt("NumberOfTotes"));
+//			    CopyOfGUIScoutstatic.sql.setNoodles(rs.getInt("NoodlesOnTopOfStacks"));
+//			    CopyOfGUIScoutstatic.sql.setRecycleBins(rs.getInt("RecyclingContainers"), rs.getInt("AverageContainerHeight"));
+//			    CopyOfGUIScoutstatic.sql.setNotes(rs.getString("GameNotes"));
+//			    CopyOfGUIScoutstatic.sql.setAbsent(rs.getString("Absent"));
+//			    CopyOfGUIScoutstatic.sql.setCoopertitionStacked(rs.getString("CoopertitionStacked"));
+//			    CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
+//			    CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
+//			    CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
+//			    CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
+//			    CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
+//			    CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
+//			    CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
+//			    CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
+//			    CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
+//			    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
+//			    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+//			    
+//			    for(int counter = 0; counter < containerHeightsForward.length; counter ++){
+//			    	containerHeightsForward[counter] = rs.getInt(25 + counter);
+//			    	containerHeightsBack[counter] = rs.getInt(32 + counter);
+//			    }
+//			    
+//			    CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
+//			    CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
+//			    CopyOfGUIScoutstatic.sql.setKnockedOverContainers(rs.getString(41));
+//			    CopyOfGUIScoutstatic.sql.setKnockedOverTotes(rs.getString(42));
+//			    CopyOfGUIScoutstatic.sql.setAutonWeWant(rs.getString(43));
+//			    CopyOfGUIScoutstatic.sql.setContainersFromCenter(rs.getInt(44));
+//			    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
+//			    
+//			    try {
+//			    	CopyOfGUIScoutstatic.sql.run();
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			    
+//			    
+//			}
+//		} catch (NullPointerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//     
+//     startNumber +=1; 
+//     try {
+//     rs.close();
+//     } catch (NullPointerException e3){
+//     	
+//     }
+//     }
+//     conn.close();
+//     
+//
+//}
 
   /**
   * @param args
