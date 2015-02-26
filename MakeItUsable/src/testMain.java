@@ -13,6 +13,10 @@ public class testMain {
 
 		Connection con = DriverManager.getConnection("jdbc:sqlite:" + "Host");
 		Statement stat = con.createStatement();
+		
+		SQLToExcel ex = new SQLToExcel("Host");
+		ex.populateExcelFile();
+		ex.writeExcelFile();
 
 		ArrayList<Integer> teamList = getTeamListFromDatabase(stat);
 

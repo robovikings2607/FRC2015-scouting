@@ -22,10 +22,9 @@ public class OtherData {
 	private int landfillNoodles;
 	private String knockedContainers;
 	private String knockedTotes;
+	private int matchNumber;
 	
 	
-	
-
 	public OtherData(int matchNumber, int teamNumber, Statement stat) throws SQLException{
 		 //Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
 		 // Statement stat = con.createStatement();
@@ -52,6 +51,10 @@ public class OtherData {
 		  }
 		  rs.close();
 		  //con.close();
+	}
+
+	public int getMatchNumber() {
+		return matchNumber;
 	}
 	
 	public int getNumberOfAutoTotesMoved(){
