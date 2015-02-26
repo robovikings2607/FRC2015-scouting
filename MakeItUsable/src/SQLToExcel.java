@@ -60,7 +60,14 @@ public class SQLToExcel {
 	}
 	
 	public void populateExcelFile(){
-		headerList.indexOf("Team");
+		int i = -1;
+		for(Team team : data){
+			for(Match match : team.getMatches()){
+				i++;
+				
+				writer.setCell(match.ge, headerList.indexOf("Team"), i);
+			}
+		}
 	}
 	
 	public void writeExcelFile(){
