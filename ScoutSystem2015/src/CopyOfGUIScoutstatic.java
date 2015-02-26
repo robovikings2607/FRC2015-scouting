@@ -816,9 +816,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		driveField.setBounds(795, 17, 20, 23);
 		driveField.setBackground(new Color(204, 204, 204));
 		frame.getContentPane().add(driveField);
-		driveField.setText("E");
-		drive = "E";
 		
+		
+		drive = driveField.getText();
 		driveField.addFocusListener(new FocusAdapter() {
              public void focusLost(FocusEvent e) {
                 // should be editable only when disconnected

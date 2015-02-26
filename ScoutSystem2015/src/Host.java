@@ -404,8 +404,9 @@ public class Host extends JFrame {
 	}
 	
 	public static void addData() throws Exception{
+		Class.forName("org.sqlite.JDBC"); 
 		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){
-			 Class.forName("org.sqlite.JDBC"); 
+			 
 		        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + scout.getPaths().get(i) + ":" + "Client"); 
 		        System.out.println(scout.getPaths().get(i));
 		        Statement stat = conn.createStatement();
@@ -493,8 +494,8 @@ public class Host extends JFrame {
 	
 	        
 	public static void addAllData() throws Exception {
-		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){
-		 Class.forName("org.sqlite.JDBC"); 
+		Class.forName("org.sqlite.JDBC"); 
+		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){ 
 	        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + scout.getPaths().get(i) + ":" + "Client"); 
 	        System.out.println(scout.getPaths().get(i));
 	        Statement stat = conn.createStatement();
@@ -563,12 +564,13 @@ public class Host extends JFrame {
 	       
 	        
 	        rs.close();
-	        conn.close();
+	       conn.close();
 	        } catch (NullPointerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        conn.close();
+	        
+	        
 	        } 
 		
 	}
