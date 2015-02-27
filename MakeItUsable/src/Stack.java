@@ -7,12 +7,10 @@ public class Stack {
 	private int matchNumber;
 	private int teamNumber;
 	private int columnIndex;
-	private int height;
 	//private int points;
 	private int toteNumber;
 	private int containerHeight;
 	private int noodleNumber;
-	private int noodle;
 	private BitMasking bitMasking = new BitMasking();
 	
 	
@@ -31,6 +29,14 @@ public class Stack {
 		this.teamNumber = teamNumber;
 		this.columnIndex = columnIndex;
 		while(rs.next()){
+			if (this.columnIndex > 6){
+				this.columnIndex -= 7; 
+			}
+			
+			if (this.columnIndex == 7){
+				System.err.println(this.columnIndex);
+			}
+			
 			if(teamNumber == rs.getInt(3) && matchNumber == rs.getInt(1)){
 				containerHeight = rs.getInt(25 + columnIndex);
 
@@ -42,17 +48,12 @@ public class Stack {
 					toteNumber = rs.getInt("TotalStackNumberForward");
 					noodleNumber = rs.getInt("NoodleNumberForward");
 				}
+				break;
 			}
 			
-			if (this.columnIndex > 6){
-				this.columnIndex -= 7; 
-			}
+
 			
-			if (this.columnIndex == 7){
-				System.err.println(this.columnIndex);
-			}
 			
-			break;
 		}
 		rs.close();
 		//con.close();
@@ -105,6 +106,7 @@ public class Stack {
 	}
 	
 	public int getHeight(){
+		int height = 0;
 		for(int i = 1; i < getDecoded().length; i ++){
 			if (getDecoded()[i] == true)
 				height = i + 1;
@@ -119,6 +121,7 @@ public class Stack {
 	}
 	
 	public int getNoodle(){ 
+		int noodle = 0;
 		boolean[] noodleArray = new boolean[7];
 		for (int i = 0; i < noodleArray.length; i++){
 			noodleArray[i] = (noodleNumber & ((long)Math.pow(2, i))) > 0;
