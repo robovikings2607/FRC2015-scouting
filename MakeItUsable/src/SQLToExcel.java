@@ -26,7 +26,7 @@ public class SQLToExcel {
 		
 		String[] headers = {"Team", "Match", "Cans Level 1", "Cans Level 2", "Cans Level 3", "Cans Level 4", "Cans Level 5", "Cans Level 6",
 				"Totes Level 1", "Totes Level 2", "Totes Level 3", "Totes Level 4", "Totes Level 5", "Totes Level 6", "Total Can Points", "Total Tote Points",
-				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points"};
+				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points", "Auto Totes"};
 		
 		headerList = new ArrayList<String>();
 		headerList.addAll(Arrays.asList(headers));
@@ -89,6 +89,8 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(getTotalStackPoints(match)), headerList.indexOf("Total Stack Points"), i);
 					writer.setCell(String.valueOf(getTotalCoopPoints(match)), headerList.indexOf("Total Co-op Points"), i);
 					writer.setCell(String.valueOf(getTotalPoints(match)), headerList.indexOf("Total Points"), i);
+					
+					writer.setCell(String.valueOf(match.otherData.getNumberOfAutoTotesMoved()), headerList.indexOf("Auto Totes"), i);
 				}
 			}
 		}
