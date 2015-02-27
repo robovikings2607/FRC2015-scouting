@@ -1,0 +1,1223 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<workbook source-platform='win' version='8.3' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <!-- build 8300.14.1212.0958                                -->
+  <preferences>
+  </preferences>
+  <datasources>
+    <datasource caption='DataByMatch (Writesheet) (2)' inline='true' name='excel-direct.42061.952750856479 (copy)' version='8.3'>
+      <connection class='excel-direct' cleaning='no' compat='no' filename='C:\Users\Griffin\git\FRC2015-scouting\MakeItUsable\Writesheet.xls'>
+        <relation name='DataByMatch$' table='[DataByMatch$]' type='table'>
+          <columns header='yes'>
+            <column datatype='integer' name='Team' ordinal='0' />
+            <column datatype='integer' name='Match' ordinal='1' />
+            <column datatype='string' name='Scout Name' ordinal='2' />
+            <column datatype='integer' name='Cans Level 1' ordinal='3' />
+            <column datatype='integer' name='Cans Level 2' ordinal='4' />
+            <column datatype='integer' name='Cans Level 3' ordinal='5' />
+            <column datatype='integer' name='Cans Level 4' ordinal='6' />
+            <column datatype='integer' name='Cans Level 5' ordinal='7' />
+            <column datatype='integer' name='Cans Level 6' ordinal='8' />
+            <column datatype='integer' name='Totes Level 1' ordinal='9' />
+            <column datatype='integer' name='Totes Level 2' ordinal='10' />
+            <column datatype='integer' name='Totes Level 3' ordinal='11' />
+            <column datatype='integer' name='Totes Level 4' ordinal='12' />
+            <column datatype='integer' name='Totes Level 5' ordinal='13' />
+            <column datatype='integer' name='Totes Level 6' ordinal='14' />
+            <column datatype='integer' name='Total Can Points' ordinal='15' />
+            <column datatype='integer' name='Total Tote Points' ordinal='16' />
+            <column datatype='integer' name='Total Noodle Points' ordinal='17' />
+            <column datatype='integer' name='Total Stack Points' ordinal='18' />
+            <column datatype='integer' name='Total Co-op Points' ordinal='19' />
+            <column datatype='integer' name='Total Points' ordinal='20' />
+            <column datatype='integer' name='Auto Totes' ordinal='21' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>Team</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Team]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Team</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Match</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Match]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Match</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Scout Name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[Scout Name]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Scout Name</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 1</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 1]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 1</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 2</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 2]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 2</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 3</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 3]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 3</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 4</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 4]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 4</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 5</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 5]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 5</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Cans Level 6</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Cans Level 6]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Cans Level 6</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 1</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 1]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 1</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 2</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 2]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 2</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 3</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 3]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 3</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 4</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 4]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 4</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 5</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 5]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 5</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Totes Level 6</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Totes Level 6]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Totes Level 6</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Can Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Can Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Can Points</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Tote Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Tote Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Tote Points</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Noodle Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Noodle Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Noodle Points</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Stack Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Stack Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Stack Points</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Co-op Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Co-op Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Co-op Points</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Total Points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Total Points]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Total Points</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Auto Totes</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Auto Totes]</local-name>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias>Auto Totes</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name></remote-name>
+            <remote-type>0</remote-type>
+            <parent-name>[DataByMatch$]</parent-name>
+            <remote-alias></remote-alias>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='integer' name='context'>3</attribute>
+              <attribute datatype='boolean' name='header'>true</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype='integer' name='[Auto Totes]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 1]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 2]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 3]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 4]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 5]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Cans Level 6]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Match]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+      </column>
+      <column datatype='integer' name='[Total Can Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Total Co-op Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Total Noodle Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Total Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Total Stack Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Total Tote Points]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 1]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 2]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 3]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 4]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 5]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='integer' name='[Totes Level 6]' role='measure' type='quantitative'>
+      </column>
+      <column-instance column='[Total Can Points]' derivation='Avg' name='[avg:Total Can Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Co-op Points]' derivation='Avg' name='[avg:Total Co-op Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Noodle Points]' derivation='Avg' name='[avg:Total Noodle Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Tote Points]' derivation='Avg' name='[avg:Total Tote Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Can Points]' derivation='Stdev' name='[std:Total Can Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Noodle Points]' derivation='Stdev' name='[std:Total Noodle Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Tote Points]' derivation='Stdev' name='[std:Total Tote Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Auto Totes]' derivation='Sum' name='[sum:Auto Totes:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 1]' derivation='Sum' name='[sum:Cans Level 1:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 2]' derivation='Sum' name='[sum:Cans Level 2:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 3]' derivation='Sum' name='[sum:Cans Level 3:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 4]' derivation='Sum' name='[sum:Cans Level 4:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 5]' derivation='Sum' name='[sum:Cans Level 5:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Cans Level 6]' derivation='Sum' name='[sum:Cans Level 6:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Match]' derivation='Sum' name='[sum:Match:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Number of Records]' derivation='Sum' name='[sum:Number of Records:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Can Points]' derivation='Sum' name='[sum:Total Can Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Co-op Points]' derivation='Sum' name='[sum:Total Co-op Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Noodle Points]' derivation='Sum' name='[sum:Total Noodle Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Points]' derivation='Sum' name='[sum:Total Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Stack Points]' derivation='Sum' name='[sum:Total Stack Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Total Tote Points]' derivation='Sum' name='[sum:Total Tote Points:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 1]' derivation='Sum' name='[sum:Totes Level 1:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 2]' derivation='Sum' name='[sum:Totes Level 2:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 3]' derivation='Sum' name='[sum:Totes Level 3:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 4]' derivation='Sum' name='[sum:Totes Level 4:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 5]' derivation='Sum' name='[sum:Totes Level 5:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Totes Level 6]' derivation='Sum' name='[sum:Totes Level 6:qk]' pivot='key' type='quantitative' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.4' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#17becf'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Tote Points:qk]&quot;</bucket>
+            </map>
+            <map to='#17becf'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 4:qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Can Points:qk]&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 6:qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Noodle Points:qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Co-op Points:qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Tote Points:qk]&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 6:qk]&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 4:qk]&quot;</bucket>
+            </map>
+            <map to='#98df8a'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 2:qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 1:qk]&quot;</bucket>
+            </map>
+            <map to='#9edae5'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 5:qk]&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Auto Totes:qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Points:qk]&quot;</bucket>
+            </map>
+            <map to='#bcbd22'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 2:qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Match:qk]&quot;</bucket>
+            </map>
+            <map to='#c49c94'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Noodle Points:qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 5:qk]&quot;</bucket>
+            </map>
+            <map to='#c5b0d5'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Can Points:qk]&quot;</bucket>
+            </map>
+            <map to='#c7c7c7'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Noodle Points:qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Tote Points:qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Total Stack Points:qk]&quot;</bucket>
+            </map>
+            <map to='#dbdb8d'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 3:qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Number of Records:qk]&quot;</bucket>
+            </map>
+            <map to='#f7b6d2'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Can Points:qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Co-op Points:qk]&quot;</bucket>
+            </map>
+            <map to='#ff9896'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 3:qk]&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 1:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Cans Comparison'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DataByMatch (Writesheet) (2)' name='excel-direct.42061.952750856479 (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='excel-direct.42061.952750856479 (copy)'>
+            <column datatype='integer' name='[Cans Level 1]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cans Level 2]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cans Level 3]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cans Level 4]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cans Level 5]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Cans Level 6]' role='measure' type='quantitative'>
+            </column>
+            <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+            </column>
+            <column-instance column='[Team]' derivation='None' name='[none:Team:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Cans Level 1]' derivation='Sum' name='[sum:Cans Level 1:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Cans Level 2]' derivation='Sum' name='[sum:Cans Level 2:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Cans Level 3]' derivation='Sum' name='[sum:Cans Level 3:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Cans Level 4]' derivation='Sum' name='[sum:Cans Level 4:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Cans Level 5]' derivation='Sum' name='[sum:Cans Level 5:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Cans Level 6]' derivation='Sum' name='[sum:Cans Level 6:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 1:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 2:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 3:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 4:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 5:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Cans Level 6:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter from='75' function='range' level='[none:Team:ok]' to='1218' />
+              <groupfilter function='member' level='[none:Team:ok]' member='5310' />
+            </groupfilter>
+          </filter>
+          <sort class='natural' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' direction='ASC' />
+          <slices>
+            <column>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</column>
+            <column>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' value='40' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[excel-direct.42061.952750856479 (copy)].[Multiple Values]</rows>
+        <cols>([excel-direct.42061.952750856479 (copy)].[none:Team:ok] / [excel-direct.42061.952750856479 (copy)].[:Measure Names])</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Notes'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DataByMatch (Writesheet) (2)' name='excel-direct.42061.952750856479 (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='excel-direct.42061.952750856479 (copy)'>
+            <column datatype='string' name='[Scout Name]' role='dimension' type='nominal'>
+            </column>
+            <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+            </column>
+            <column-instance column='[Scout Name]' derivation='None' name='[none:Scout Name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Team]' derivation='None' name='[none:Team:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]'>
+            <groupfilter function='member' level='[none:Team:ok]' member='1218' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>([excel-direct.42061.952750856479 (copy)].[none:Team:ok] / [excel-direct.42061.952750856479 (copy)].[none:Scout Name:nk])</rows>
+        <cols></cols>
+      </table>
+    </worksheet>
+    <worksheet name='Points Consistancy'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DataByMatch (Writesheet) (2)' name='excel-direct.42061.952750856479 (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='excel-direct.42061.952750856479 (copy)'>
+            <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+            </column>
+            <column datatype='integer' name='[Total Can Points]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Total Noodle Points]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Total Tote Points]' role='measure' type='quantitative'>
+            </column>
+            <column-instance column='[Team]' derivation='None' name='[none:Team:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Total Can Points]' derivation='Stdev' name='[std:Total Can Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Total Noodle Points]' derivation='Stdev' name='[std:Total Noodle Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Total Tote Points]' derivation='Stdev' name='[std:Total Tote Points:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Can Points:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Noodle Points:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[std:Total Tote Points:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:Team:ok]' member='75' />
+              <groupfilter function='member' level='[none:Team:ok]' member='303' />
+              <groupfilter function='member' level='[none:Team:ok]' member='5310' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</column>
+            <column>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[excel-direct.42061.952750856479 (copy)].[Multiple Values]</rows>
+        <cols>([excel-direct.42061.952750856479 (copy)].[none:Team:ok] / [excel-direct.42061.952750856479 (copy)].[:Measure Names])</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Points Distribution'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DataByMatch (Writesheet) (2)' name='excel-direct.42061.952750856479 (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='excel-direct.42061.952750856479 (copy)'>
+            <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+            </column>
+            <column datatype='integer' name='[Total Can Points]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Total Co-op Points]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Total Noodle Points]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Total Tote Points]' role='measure' type='quantitative'>
+            </column>
+            <column-instance column='[Total Can Points]' derivation='Avg' name='[avg:Total Can Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Total Co-op Points]' derivation='Avg' name='[avg:Total Co-op Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Total Noodle Points]' derivation='Avg' name='[avg:Total Noodle Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Total Tote Points]' derivation='Avg' name='[avg:Total Tote Points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Team]' derivation='None' name='[none:Team:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Can Points:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Co-op Points:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Noodle Points:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[avg:Total Tote Points:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</rows>
+        <cols>[excel-direct.42061.952750856479 (copy)].[Multiple Values]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Totes Comparison'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DataByMatch (Writesheet) (2)' name='excel-direct.42061.952750856479 (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='excel-direct.42061.952750856479 (copy)'>
+            <column aggregation='Sum' datatype='integer' name='[Team]' role='dimension' type='ordinal'>
+            </column>
+            <column datatype='integer' name='[Totes Level 1]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Totes Level 2]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Totes Level 3]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Totes Level 4]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Totes Level 5]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='integer' name='[Totes Level 6]' role='measure' type='quantitative'>
+            </column>
+            <column-instance column='[Team]' derivation='None' name='[none:Team:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Totes Level 1]' derivation='Sum' name='[sum:Totes Level 1:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Totes Level 2]' derivation='Sum' name='[sum:Totes Level 2:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Totes Level 3]' derivation='Sum' name='[sum:Totes Level 3:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Totes Level 4]' derivation='Sum' name='[sum:Totes Level 4:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Totes Level 5]' derivation='Sum' name='[sum:Totes Level 5:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Totes Level 6]' derivation='Sum' name='[sum:Totes Level 6:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 1:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 2:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 3:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 4:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 5:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[excel-direct.42061.952750856479 (copy)].[sum:Totes Level 6:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter from='75' function='range' level='[none:Team:ok]' to='1218' />
+              <groupfilter function='member' level='[none:Team:ok]' member='5310' />
+            </groupfilter>
+          </filter>
+          <sort class='natural' column='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' direction='ASC' />
+          <slices>
+            <column>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</column>
+            <column>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' value='40' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[excel-direct.42061.952750856479 (copy)].[Multiple Values]</rows>
+        <cols>([excel-direct.42061.952750856479 (copy)].[none:Team:ok] / [excel-direct.42061.952750856479 (copy)].[:Measure Names])</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows>
+    <window class='schema' source-height='-1' />
+    <window auto-hidden='0' class='worksheet' maximized='1' name='Cans Comparison'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='checkdropdown' param='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' show-domain='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</field>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='Totes Comparison'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='checkdropdown' param='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' show-domain='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</field>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='Points Distribution'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+            <card pane-specification-id='0' param='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</field>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='Points Consistancy'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+            <card pane-specification-id='0' param='[excel-direct.42061.952750856479 (copy)].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='checkdropdown' param='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' show-domain='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[excel-direct.42061.952750856479 (copy)].[:Measure Names]</field>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='Notes'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='checkdropdown' param='[excel-direct.42061.952750856479 (copy)].[none:Team:ok]' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Scout Name:nk]</field>
+          <field>[excel-direct.42061.952750856479 (copy)].[none:Team:ok]</field>
+        </color-one-way>
+      </highlight>
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Cans Comparison' width='192'>
+      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
+    </thumbnail>
+    <thumbnail height='192' name='Totes Comparison' width='192'>
+      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
+      AABJRU5ErkJggg==
+    </thumbnail>
+    <thumbnail height='162' name='Points Distribution' width='192'>
+      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
+    </thumbnail>
+    <thumbnail height='192' name='Points Consistancy' width='192'>
+      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
+      AvdvGtoAGhQV+8YAAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='84' name='Notes' width='192'>
+      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
+    </thumbnail>
+  </thumbnails>
+</workbook>
