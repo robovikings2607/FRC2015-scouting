@@ -27,6 +27,8 @@ public class ExcelWriter {
 			out = new FileOutputStream(new File("Writesheet.xls"));
 			workbook.write(out);
 			out.close();
+			
+			System.out.println("Written");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,11 +40,12 @@ public class ExcelWriter {
 	
 	public void setHeaders(ArrayList<String> headers){
 		for (int i = 0; i < headers.size(); i++){
-			setCell(headers.get(i), i, 0);
+			setCell(headers.get(i), i, -1);
 		}
 	}
 	
 	public void setCell(String value, int column, int rowNum){
+		rowNum++; //For header
 		HSSFRow row = spreadsheet.getRow(rowNum);
 		if (row == null) row = spreadsheet.createRow(rowNum);
 		

@@ -47,6 +47,7 @@ public class OtherData {
 		         landfillNoodles = (rs.getInt("NoodlesPushedToLandFill"));
 		         knockedContainers = (rs.getString("PickedUpKnockedOverContainers"));
 		         knockedTotes = (rs.getString("PickedUpKnockedOverTotes"));
+		         this.matchNumber = rs.getInt("MatchNumber");
 			  }
 		  }
 		  rs.close();

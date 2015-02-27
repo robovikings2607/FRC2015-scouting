@@ -8,63 +8,77 @@ public class Stack {
 	private int teamNumber;
 	private int columnIndex;
 	private int height;
-	private int numberOfTotes;
 	//private int points;
 	private int toteNumber;
 	private int containerHeight;
 	private int noodleNumber;
 	private int noodle;
-	private boolean[] stack = new boolean[7];
-	private boolean[] noodleArray = new boolean[7];
 	private BitMasking bitMasking = new BitMasking();
 	
 	
 	
 	public Stack(int matchNumber, int teamNumber, int columnIndex, Statement stat) throws Exception{
-		  // sqlite driver
-		 
-			//Class.forName("org.sqlite.JDBC");
-		  // database path, if it's new database,
-		  // it will be created in the project folder
-		  //Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
-		  //stat = con.createStatement();
-		  ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
-		  this.matchNumber = matchNumber;
-		  this.teamNumber = teamNumber;
-		  this.columnIndex = columnIndex;
-		  while(rs.next()){
-			  if(teamNumber == rs.getInt("TeamNumber") && matchNumber == rs.getInt("MatchNumber")){
-				  if (columnIndex < 6){
-					  toteNumber = rs.getInt("TotalStackNumberForward");
-					  noodleNumber = rs.getInt("NoodleNumberForward");
-				  }	  
-				  else{
-					  toteNumber = rs.getInt("TotalStackNumberBack");
-					  noodleNumber = rs.getInt("NoodleNumberBack");
-					this.columnIndex = columnIndex - 6;  
-				  }
-				  
-				  containerHeight = rs.getInt(25 + columnIndex);
-				  break;
-			  }
-		  }
-		  rs.close();
-		  //con.close();
-		  
+		toteNumber = 0;
+		// sqlite driver
+
+		//Class.forName("org.sqlite.JDBC");
+		// database path, if it's new database,
+		// it will be created in the project folder
+		//Connection con = DriverManager.getConnection("jdbc:sqlite:" + "E:Host");
+		//stat = con.createStatement();
+		ResultSet rs = stat.executeQuery("select * from "+ "AllMatches");
+		this.matchNumber = matchNumber;
+		this.teamNumber = teamNumber;
+		this.columnIndex = columnIndex;
+		while(rs.next()){
+			if(teamNumber == rs.getInt(3) && matchNumber == rs.getInt(1)){
+				containerHeight = rs.getInt(25 + columnIndex);
+
+				if (this.columnIndex > 6){
+					toteNumber = rs.getInt("TotalStackNumberBack");
+					noodleNumber = rs.getInt("NoodleNumberBack");
+
+				} else{
+					toteNumber = rs.getInt("TotalStackNumberForward");
+					noodleNumber = rs.getInt("NoodleNumberForward");
+				}
+			}
+			
+			if (this.columnIndex > 6){
+				this.columnIndex -= 7; 
+			}
+			
+			if (this.columnIndex == 7){
+				System.err.println(this.columnIndex);
+			}
+			
+			break;
+		}
+		rs.close();
+		//con.close();
+
 	}
 	
 	public boolean[] getDecoded(){
+		if (this.columnIndex == 7){
+			System.err.println(this.columnIndex);
+		}
+		
+		boolean[] stack = new boolean[6];
 		boolean allStacks[] = bitMasking.decodeStack(toteNumber);
 		
-		
-		for(int counter = 0; counter<stack.length;counter++){
-		stack[counter] = allStacks[((columnIndex * 6) + counter)]; // wrong
+		for(int counter = 0; counter < stack.length; counter++){
+			try{
+				stack[counter] = allStacks[((this.columnIndex * 6) + counter)]; // wrong
+			} catch (ArrayIndexOutOfBoundsException e){
+				e.printStackTrace();
+			}
 		}
 		return stack;
 	}
 	
 	public int getNumberOfTotes(){
-		numberOfTotes = 0; //why all these global variables?
+		int numberOfTotes = 0; 
 		
 		for(int i = 0; i < getDecoded().length; i ++){
 			if (getDecoded()[i] == true)
@@ -104,7 +118,8 @@ public class Stack {
 		return containerHeight;
 	}
 	
-	public int getNoodle(){ //Shouldn't this be a boolean?
+	public int getNoodle(){ 
+		boolean[] noodleArray = new boolean[7];
 		for (int i = 0; i < noodleArray.length; i++){
 			noodleArray[i] = (noodleNumber & ((long)Math.pow(2, i))) > 0;
 		}

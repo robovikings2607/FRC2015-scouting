@@ -72,22 +72,24 @@ public class SQLToExcel {
 		int i = -1;
 		for(Team team : data){
 			for(Match match : team.getMatches()){
-				i++;
-				
-				writer.setCell(String.valueOf(match.teamNumber), headerList.indexOf("Team"), i);
-				writer.setCell(String.valueOf(match.otherData.getMatchNumber()), headerList.indexOf("Match"), i);
-				
-				for (int foo = 1; foo <= 6; foo++){
-					writer.setCell(String.valueOf(getTotesAtHeight(foo, match)), headerList.indexOf("Totes Level " + foo), i);
-					writer.setCell(String.valueOf(getContainersAtHeight(foo, match)), headerList.indexOf("Cans Level " + foo), i);
+				if (match.otherData.getMatchNumber() != 0) {
+					i++;
+					
+					writer.setCell(String.valueOf(match.teamNumber), headerList.indexOf("Team"), i);
+					writer.setCell(String.valueOf(match.otherData.getMatchNumber()), headerList.indexOf("Match"), i);
+					
+					for (int foo = 1; foo <= 6; foo++){
+						writer.setCell(String.valueOf(getTotesAtHeight(foo-1, match)), headerList.indexOf("Totes Level " + foo), i);
+						writer.setCell(String.valueOf(getContainersAtHeight(foo, match)), headerList.indexOf("Cans Level " + foo), i);
+					}
+					
+					writer.setCell(String.valueOf(getTotalCanPoints(match)), headerList.indexOf("Total Can Points"), i);
+					writer.setCell(String.valueOf(getTotalTotePoints(match)), headerList.indexOf("Total Tote Points"), i);
+					writer.setCell(String.valueOf(getTotalNoodlePoints(match)), headerList.indexOf("Total Noodle Points"), i);
+					writer.setCell(String.valueOf(getTotalStackPoints(match)), headerList.indexOf("Total Stack Points"), i);
+					writer.setCell(String.valueOf(getTotalCoopPoints(match)), headerList.indexOf("Total Co-op Points"), i);
+					writer.setCell(String.valueOf(getTotalPoints(match)), headerList.indexOf("Total Points"), i);
 				}
-				
-				writer.setCell(String.valueOf(getTotalCanPoints(match)), headerList.indexOf("Total Can Points"), i);
-				writer.setCell(String.valueOf(getTotalTotePoints(match)), headerList.indexOf("Total Tote Points"), i);
-				writer.setCell(String.valueOf(getTotalNoodlePoints(match)), headerList.indexOf("Total Noodle Points"), i);
-				writer.setCell(String.valueOf(getTotalStackPoints(match)), headerList.indexOf("Total Stack Points"), i);
-				writer.setCell(String.valueOf(getTotalCoopPoints(match)), headerList.indexOf("Total Co-op Points"), i);
-				writer.setCell(String.valueOf(getTotalPoints(match)), headerList.indexOf("Total Points"), i);
 			}
 		}
 		

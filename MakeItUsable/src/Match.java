@@ -13,7 +13,7 @@ public class Match {
 		this.teamNumber = teamNumber;
 		
 		for(int i = 0; i < 14; i++){
-		stacks.add(new Stack(matchNumber, teamNumber, i, stat));
+			stacks.add(new Stack(matchNumber, teamNumber, i, stat));
 		}
 		otherData = new OtherData(matchNumber, teamNumber, stat);
 	}

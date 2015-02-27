@@ -17,6 +17,8 @@ public class testMain {
 		SQLToExcel ex = new SQLToExcel("Host");
 		ex.populateExcelFile();
 		ex.writeExcelFile();
+		
+		
 
 		ArrayList<Integer> teamList = getTeamListFromDatabase(stat);
 
