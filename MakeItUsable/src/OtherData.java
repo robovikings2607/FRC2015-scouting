@@ -23,6 +23,10 @@ public class OtherData {
 	private String knockedContainers;
 	private String knockedTotes;
 	private int matchNumber;
+	private String autonWeWant;
+	private int containersFromCenter;
+	private int autoContainersFromCenter;
+	private String scoutName;
 	
 	
 	public OtherData(int matchNumber, int teamNumber, Statement stat) throws SQLException{
@@ -48,10 +52,33 @@ public class OtherData {
 		         knockedContainers = (rs.getString("PickedUpKnockedOverContainers"));
 		         knockedTotes = (rs.getString("PickedUpKnockedOverTotes"));
 		         this.matchNumber = rs.getInt("MatchNumber");
+		         autonWeWant =  (rs.getString(43));
+		         containersFromCenter = (rs.getInt(44));
+				 autoContainersFromCenter = (rs.getInt(45));
+				 scoutName = rs.getString(2);
+				 
 			  }
 		  }
 		  rs.close();
 		  //con.close();
+	}
+	
+	public String getScoutName(){
+		return scoutName;
+	}
+	
+	public int autoContainersFromCenter(){
+		return autoContainersFromCenter;
+	}
+	
+	public int containersFromCenter(){
+		return containersFromCenter;
+	}
+	
+	public boolean isAutonWeWant(){
+		boolean isAutonWeWantB;
+		isAutonWeWantB = (("yes" == autonWeWant)? true:false);
+		return isAutonWeWantB;
 	}
 
 	public int getMatchNumber() {
