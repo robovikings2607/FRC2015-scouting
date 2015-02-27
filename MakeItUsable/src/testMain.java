@@ -11,10 +11,14 @@ public class testMain {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		Connection con = DriverManager.getConnection("jdbc:sqlite:" + "HostLotsOfData");
+		if (args.length < 1){
+			System.err.println("Need Argrument To Specify Database!");
+			System.exit(0);
+		}
+		Connection con = DriverManager.getConnection("jdbc:sqlite:" + args[0]);
 		Statement stat = con.createStatement();
 		
-		SQLToExcel ex = new SQLToExcel("HostLotsOfData");
+		SQLToExcel ex = new SQLToExcel(args[0]);
 		ex.populateExcelFile();
 		ex.writeExcelFile();
 		

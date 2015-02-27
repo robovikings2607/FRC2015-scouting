@@ -26,7 +26,10 @@ public class SQLToExcel {
 		
 		String[] headers = {"Team", "Match", "Scout Name", "Cans Level 1", "Cans Level 2", "Cans Level 3", "Cans Level 4", "Cans Level 5", "Cans Level 6",
 				"Totes Level 1", "Totes Level 2", "Totes Level 3", "Totes Level 4", "Totes Level 5", "Totes Level 6", "Total Can Points", "Total Tote Points",
-				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points", "Auto Totes Moved", "Auto Totes Stacked", "Auto Cans Moved", "Auto Robot Moved"};
+				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points", "Auto Totes Moved", "Auto Totes Stacked", "Auto Cans Moved", "Auto Robot Moved", "Auto Center Cans",
+				"Broken", "Did Nothing", "Absent",
+				"Totes From Landfill", "Totes From Human", "Noodles Push To Landfill", "Pick Up Knocked Over Totes", "Pick Up Knocked Over Cans", "Containers From Center",
+				"Notes"};
 		
 		headerList = new ArrayList<String>();
 		headerList.addAll(Arrays.asList(headers));
@@ -95,6 +98,20 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(match.otherData.getNumberOfAutoRecyclingBinsMoved()), headerList.indexOf("Auto Cans Moved"), i);
 					writer.setCell(String.valueOf(match.otherData.isStackedAllThreeAutoTotes()?1:0), headerList.indexOf("Auto Totes Stacked"), i);
 					writer.setCell(String.valueOf(match.otherData.isRobotMovedAuto()?1:0), headerList.indexOf("Auto Robot Moved"), i);
+					writer.setCell(String.valueOf(match.otherData.autoContainersFromCenter()), headerList.indexOf("Auto Center Cans"), i);
+					
+					writer.setCell(String.valueOf(match.otherData.isBroken()?1:0), headerList.indexOf("Broken"), i);
+					writer.setCell(String.valueOf(match.otherData.isAbsent()?1:0), headerList.indexOf("Absent"), i);
+					writer.setCell(String.valueOf(match.otherData.isDidNothing()?1:0), headerList.indexOf("Did Nothing"), i);
+					
+					writer.setCell(String.valueOf(match.otherData.isTakesFromLandfill()?1:0), headerList.indexOf("Totes From Landfill"), i);
+					writer.setCell(String.valueOf(match.otherData.isTakesFromHumanPlayer()?1:0), headerList.indexOf("Totes From Human"), i);
+					writer.setCell(String.valueOf(match.otherData.getNumberOfLandfillNoodles()), headerList.indexOf("Noodles Push To Landfill"), i);
+					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverTotes()?1:0), headerList.indexOf("Pick Up Knocked Over Totes"), i);
+					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverContainers()?1:0), headerList.indexOf("Pick Up Knocked Over Cans"), i);
+					writer.setCell(String.valueOf(match.otherData.containersFromCenter()), headerList.indexOf("Containers From Center"), i);
+					
+					writer.setCell(String.valueOf(match.otherData.getGameNotes()), headerList.indexOf("Notes"), i);
 					
 				}
 			}
