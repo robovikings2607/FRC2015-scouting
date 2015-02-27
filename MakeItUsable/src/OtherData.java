@@ -158,4 +158,8 @@ public class OtherData {
 		knockedTotesB = (("yes" == knockedTotes)? true: false);
 		return knockedTotesB;
 	}
+	
+	public boolean isRobotMovedAuto(){
+		return (madeItToAutoZone == "yes");
+	}
 }

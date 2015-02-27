@@ -11,10 +11,10 @@ public class testMain {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		Connection con = DriverManager.getConnection("jdbc:sqlite:" + "H:HostLotsOfData");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:" + "HostLotsOfData");
 		Statement stat = con.createStatement();
 		
-		SQLToExcel ex = new SQLToExcel("H:HostLotsOfData");
+		SQLToExcel ex = new SQLToExcel("HostLotsOfData");
 		ex.populateExcelFile();
 		ex.writeExcelFile();
 		
