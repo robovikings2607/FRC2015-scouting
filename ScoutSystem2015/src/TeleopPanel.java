@@ -37,7 +37,7 @@ public class TeleopPanel extends JPanel {
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(0, 199, 555, 26);
+		textField.setBounds(0, 199, 575, 26);
 		add(textField);
 		textField.setColumns(10);
 		

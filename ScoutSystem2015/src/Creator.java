@@ -12,19 +12,15 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.frc2834.bluealliance.v1.BlueAlliance;
-import org.frc2834.bluealliance.v1.event.SimpleEvent;
 import org.frc2834.bluealliance.v1.matches.Match;
 
 
 public class Creator {
 	static BlueAlliance b = new BlueAlliance();
 
-	public static void main(String[] args) {
-		
-
-		
+	public void doIt() {
 		try {
-			ArrayList<List<Integer>> y = getMatchList("2015padre");
+			ArrayList<List<Integer>> y = getMatchList("2014pahat");
 			
 			CSVHandler.writeArrayToFile(y);
 			

@@ -29,13 +29,6 @@ public class Stack {
 		this.teamNumber = teamNumber;
 		this.columnIndex = columnIndex;
 		while(rs.next()){
-			if (this.columnIndex > 6){
-				this.columnIndex -= 7; 
-			}
-			
-			if (this.columnIndex == 7){
-				System.err.println(this.columnIndex);
-			}
 			
 			if(teamNumber == rs.getInt(3) && matchNumber == rs.getInt(1)){
 				containerHeight = rs.getInt(25 + columnIndex);
@@ -47,6 +40,14 @@ public class Stack {
 				} else{
 					toteNumber = rs.getInt("TotalStackNumberForward");
 					noodleNumber = rs.getInt("NoodleNumberForward");
+				}
+				
+				if (this.columnIndex > 6){
+					this.columnIndex -= 7; 
+				}
+				
+				if (this.columnIndex == 7){
+					System.err.println(this.columnIndex);
 				}
 				break;
 			}

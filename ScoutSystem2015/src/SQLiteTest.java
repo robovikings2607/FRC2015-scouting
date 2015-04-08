@@ -40,7 +40,11 @@ public class SQLiteTest{
   String knockedOverTotes;
   int noodleNumberForward;
   int noodleNumberBack;
+  int counter;
   boolean firstTime = false;
+  String tipped;
+  int fouls;
+  String unreliable;
   
   
   String namedFile = "scoutdb.db";
@@ -76,7 +80,7 @@ public void run() throws Exception {
 				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
 				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
 				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT," +
-				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT);");
+				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT," + "knockedStacks INT," + "timer INT," + "timerCheck varchar(30)," + "fouls INT," + "tipped varchar(30));");
 		  firstTime = false;
 	  
   } else {
@@ -100,7 +104,7 @@ public void run() throws Exception {
 //				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT);");
   }
   // inserting data
-  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+  PreparedStatement prep = con.prepareStatement("insert into " + tableName + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
   prep.setInt(1, matchNumber);
   prep.setString(2, scouterName);
@@ -147,6 +151,11 @@ public void run() throws Exception {
   prep.setString(43, autonWeWant);
   prep.setInt(44, containersFromCenter);
   prep.setInt(45, autoContainersFromCenter);
+  prep.setInt(46, knockedStacks);
+  prep.setInt(47, counter);
+  prep.setString(48, unreliable);
+  prep.setInt(49, fouls);
+  prep.setString(50, tipped);
   
 
   prep.execute();
@@ -309,6 +318,22 @@ public void setKnockedOverStacks(int knockedStacks){
 	this.knockedStacks = knockedStacks;
 }
 
+public void setCoopertitionTimer(int counter){
+	this.counter = counter;
+}
+
+public void setTippedOver(String tipped){
+	this.tipped = tipped;
+}
+
+public void setFouls(int fouls){
+	this.fouls = fouls;
+}
+
+public void setUnreliableTimer(String unreliable){
+	this.unreliable = unreliable;
+}
+
 //public void synchronize() throws Exception{
 //	 Class.forName("org.sqlite.JDBC");
 //     Connection conn = DriverManager.getConnection("jdbc:sqlite:" + "C:ClientSystem"); 
@@ -394,6 +419,93 @@ public void setKnockedOverStacks(int knockedStacks){
 //
 //}
 
+	public  void Synchronize() throws Exception{
+		Class.forName("org.sqlite.JDBC"); 
+		for (int i = 2; i < CopyOfGUIScoutstatic.getPaths().size(); i ++ ){ 
+	        Connection conn = DriverManager.getConnection("jdbc:sqlite://C:/Users/dellagD/Desktop/ClientSystem"); 
+	        Statement stat = conn.createStatement();
+	        
+	        
+	        ResultSet rs = null;
+			try {
+				rs = stat.executeQuery("select * from "+ "Client_Matches");
+				
+			} catch (NullPointerException e1) {	
+				
+			}
+			catch (SQLException e1) {	
+				
+			}
+	        try {
+				while (rs.next()) {
+				    CopyOfGUIScoutstatic.sql.setMatchNumber(rs.getInt("MatchNumber"));
+				    CopyOfGUIScoutstatic.sql.setFileName(CopyOfGUIScoutstatic.drive + ":" + "ClientMatches");
+				    CopyOfGUIScoutstatic.sql.setTableName("Client_Matches");
+				    CopyOfGUIScoutstatic.sql.setScouterName(rs.getString("ScoutName")); 
+				    CopyOfGUIScoutstatic.sql.setTeamNumber(rs.getInt("TeamNumber"));
+				    CopyOfGUIScoutstatic.sql.setPoints(rs.getInt("Points"));
+				    CopyOfGUIScoutstatic.sql.setTotalStackNumber(rs.getLong("TotalStackNumberForward"), rs.getLong("TotalStackNumberBack"));
+				    CopyOfGUIScoutstatic.sql.setTotes(rs.getInt("NumberOfTotes"));
+				    CopyOfGUIScoutstatic.sql.setNoodles(rs.getInt("NoodlesOnTopOfStacks"));
+				    CopyOfGUIScoutstatic.sql.setRecycleBins(rs.getInt("RecyclingContainers"), rs.getInt("AverageContainerHeight"));
+				    CopyOfGUIScoutstatic.sql.setNotes(rs.getString("GameNotes"));
+				    CopyOfGUIScoutstatic.sql.setAbsent(rs.getString("Absent"));
+				    CopyOfGUIScoutstatic.sql.setCoopertitionStacked(rs.getString("CoopertitionStacked"));
+				    CopyOfGUIScoutstatic.sql.setDidNothing(rs.getString("DidNothing"));
+				    CopyOfGUIScoutstatic.sql.setTakesFromHumanPlayer(rs.getString("TakesFromHumanPlayer"));
+				    CopyOfGUIScoutstatic.sql.setAutoTotesStacked(rs.getString("StackedAllThreeAutonTotes"));
+				    CopyOfGUIScoutstatic.sql.setAutoTotesMoved(rs.getInt("AutoTotesMoved"));
+				    CopyOfGUIScoutstatic.sql.setAutoBinsMoved(rs.getInt("AutoRecyclingContainersMoved"));
+				    CopyOfGUIScoutstatic.sql.setMadeItToAutoZone(rs.getString("MadeItToAutoZone"));
+				    CopyOfGUIScoutstatic.sql.setBroken(rs.getString("EsBroken"));
+				    CopyOfGUIScoutstatic.sql.setTakesFromLandFill(rs.getString("TakesFromLandfill"));
+				    CopyOfGUIScoutstatic.sql.setLandFillNoodles(rs.getInt("NoodlesPushedToLandFill"));
+				    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverContainers(rs.getString("PickedUpKnockedOverContainers"));
+				    CopyOfGUIScoutstatic.sql.setPickedUpKnockedOverTotes(rs.getString("PickedUpKnockedOverTotes"));
+				    
+				    for(int counter = 0; counter < containerHeightsForward.length; counter ++){
+				    	containerHeightsForward[counter] = rs.getInt(25 + counter);
+				    	containerHeightsBack[counter] = rs.getInt(32 + counter);
+				    }
+				    
+				    CopyOfGUIScoutstatic.sql.setContainerHeights(containerHeightsForward, containerHeightsBack);
+				    CopyOfGUIScoutstatic.sql.setNoodleNumber(rs.getInt("NoodleNumberForward"), rs.getInt("NoodleNumberBack"));
+				    CopyOfGUIScoutstatic.sql.setKnockedOverContainers(rs.getString(41));
+				    CopyOfGUIScoutstatic.sql.setKnockedOverTotes(rs.getString(42));
+				    CopyOfGUIScoutstatic.sql.setAutonWeWant(rs.getString(43));
+				    CopyOfGUIScoutstatic.sql.setContainersFromCenter(rs.getInt(44));
+				    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
+				    CopyOfGUIScoutstatic.sql.setKnockedOverStacks(rs.getInt(46));
+				    CopyOfGUIScoutstatic.sql.setTippedOver(rs.getString(50));
+				    CopyOfGUIScoutstatic.sql.setUnreliableTimer(rs.getString(48));
+				    CopyOfGUIScoutstatic.sql.setFouls(rs.getInt(49));
+				    CopyOfGUIScoutstatic.sql.setCoopertitionTimer(rs.getInt(47));
+				    
+				    try {
+				    	CopyOfGUIScoutstatic.sql.run();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+				    
+				}
+			
+	       
+	        
+	        rs.close();
+	       conn.close();
+	        } catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        
+	        } 
+		
+	}
+	}
+
   /**
   * @param args
   */
@@ -405,4 +517,3 @@ public void setKnockedOverStacks(int knockedStacks){
       }
   } */
  
-}

@@ -26,8 +26,8 @@ public class SQLToExcel {
 		
 		String[] headers = {"Team", "Match", "Scout Name", "Cans Level 1", "Cans Level 2", "Cans Level 3", "Cans Level 4", "Cans Level 5", "Cans Level 6",
 				"Totes Level 1", "Totes Level 2", "Totes Level 3", "Totes Level 4", "Totes Level 5", "Totes Level 6", "Total Can Points", "Total Tote Points",
-				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points", "Auto Totes Moved", "Auto Totes Stacked", "Auto Cans Moved", "Auto Robot Moved", "Auto Center Cans",
-				"Broken", "Did Nothing", "Absent",
+				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points Without Fouls", "Total Points", "Points Per Second", "Auto Totes Moved", "Auto Totes Stacked", "Auto Cans Moved", "Auto Robot Moved", "Auto Center Cans",
+				"Broken", "Did Nothing", "Stacks Knocked Over", "Absent", "Tipped Over", "Fouls", "Total Foul Points", "Time taken for Coopertition",
 				"Totes From Landfill", "Totes From Human", "Noodles Push To Landfill", "Pick Up Knocked Over Totes", "Pick Up Knocked Over Cans", "Containers From Center",
 				"Notes"};
 		
@@ -92,7 +92,11 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(getTotalNoodlePoints(match)), headerList.indexOf("Total Noodle Points"), i);
 					writer.setCell(String.valueOf(getTotalStackPoints(match)), headerList.indexOf("Total Stack Points"), i);
 					writer.setCell(String.valueOf(getTotalCoopPoints(match)), headerList.indexOf("Total Co-op Points"), i);
+					writer.setCell(String.valueOf(getTotalFoulPoints(match)), headerList.indexOf("Total Foul Points"), i);
+					writer.setCell(String.valueOf(getPoints(match)), headerList.indexOf("Total Points Without Fouls"), i);
 					writer.setCell(String.valueOf(getTotalPoints(match)), headerList.indexOf("Total Points"), i);
+					writer.setCell(String.valueOf(getPointsPerSecond(match)), headerList.indexOf("Points Per Second"), i);
+					
 					
 					writer.setCell(String.valueOf(match.otherData.getNumberOfAutoTotesMoved()), headerList.indexOf("Auto Totes Moved"), i);
 					writer.setCell(String.valueOf(match.otherData.getNumberOfAutoRecyclingBinsMoved()), headerList.indexOf("Auto Cans Moved"), i);
@@ -103,6 +107,9 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(match.otherData.isBroken()?1:0), headerList.indexOf("Broken"), i);
 					writer.setCell(String.valueOf(match.otherData.isAbsent()?1:0), headerList.indexOf("Absent"), i);
 					writer.setCell(String.valueOf(match.otherData.isDidNothing()?1:0), headerList.indexOf("Did Nothing"), i);
+					writer.setCell(String.valueOf(match.otherData.getStacksKnockedOver()), headerList.indexOf("Stacks Knocked Over"), i);
+					writer.setCell(String.valueOf(match.otherData.isTipped()?1:0), headerList.indexOf("Tipped Over"), i);
+					writer.setCell(String.valueOf(match.otherData.getFouls()), headerList.indexOf("Fouls"), i);
 					
 					writer.setCell(String.valueOf(match.otherData.isTakesFromLandfill()?1:0), headerList.indexOf("Totes From Landfill"), i);
 					writer.setCell(String.valueOf(match.otherData.isTakesFromHumanPlayer()?1:0), headerList.indexOf("Totes From Human"), i);
@@ -110,6 +117,7 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverTotes()?1:0), headerList.indexOf("Pick Up Knocked Over Totes"), i);
 					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverContainers()?1:0), headerList.indexOf("Pick Up Knocked Over Cans"), i);
 					writer.setCell(String.valueOf(match.otherData.containersFromCenter()), headerList.indexOf("Containers From Center"), i);
+					writer.setCell(String.valueOf((match.otherData.isTimerUnreliable() || (match.otherData.getTimerCount() == 0)) ? null:match.otherData.getTimerCount()), headerList.indexOf("Time taken for Coopertition"), i);
 					
 					writer.setCell(String.valueOf(match.otherData.getGameNotes()), headerList.indexOf("Notes"), i);
 					
@@ -131,6 +139,7 @@ public class SQLToExcel {
 		return totes;
 	}
 	
+	
 	private int getContainersAtHeight(int height, Match match){
 		int cans = 0;
 		
@@ -141,6 +150,12 @@ public class SQLToExcel {
 		}
 		
 		return cans;
+	}
+	
+	private int getTotalFoulPoints(Match match){
+		int fouls = 0;
+		
+		return match.getOtherData().getFoulPoints();
 	}
 	
 	private int getTotalCanPoints(Match match){
@@ -178,11 +193,23 @@ public class SQLToExcel {
 	}
 	
 	private int getTotalCoopPoints(Match match){
-		return match.getOtherData().isCoopertitionStacked()?1:0 * 40;
+		if (match.getMatchNumber() > 36 || match.getOtherData().getTimerCount() > 0){ //|| match.getOtherData().isCoopertitionStacked()){ != data.get(match.teamNumber).getMatch(match.getMatchNumber() - 1).getOtherData().isCoopertitionStacked()){
+			return match.getOtherData().isCoopertitionStacked()?1:0 * 40;
+		} else {
+			return 0;		
+		}
 	}
 	
 	private int getTotalPoints(Match match){
+		return getTotalStackPoints(match) + getTotalCoopPoints(match) - getTotalFoulPoints(match);
+	}
+	
+	private int getPoints(Match match){
 		return getTotalStackPoints(match) + getTotalCoopPoints(match);
+	}
+	
+	private double getPointsPerSecond(Match match){
+		return (double) (getTotalStackPoints(match))/(135.0 - (match.otherData.isTimerUnreliable() ? 0.0:match.otherData.getTimerCount()));
 	}
 	
 }

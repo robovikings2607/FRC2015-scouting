@@ -27,6 +27,11 @@ public class OtherData {
 	private int containersFromCenter;
 	private int autoContainersFromCenter;
 	private String scoutName;
+	private int stacksKnockedOver;
+	private int fouls;
+	private int timerCount;
+	private String unreliableTimer;
+	private String tipped;
 	
 	
 	public OtherData(int matchNumber, int teamNumber, Statement stat) throws SQLException{
@@ -56,11 +61,44 @@ public class OtherData {
 		         containersFromCenter = (rs.getInt(44));
 				 autoContainersFromCenter = (rs.getInt(45));
 				 scoutName = rs.getString(2);
+				 stacksKnockedOver = rs.getInt(46);
+				tipped = (rs.getString(50));
+				unreliableTimer = (rs.getString(48));
+				fouls = (rs.getInt(49));
+				timerCount = (rs.getInt(47));
 				 
 			  }
 		  }
 		  rs.close();
 		  //con.close();
+	}
+	
+	public int getTimerCount(){
+		return timerCount;
+	}
+	
+	public int getFouls(){
+		return fouls;
+	}
+	
+	public int getFoulPoints(){
+		return (fouls *6);
+	}
+	
+	public boolean isTimerUnreliable(){
+		boolean b;
+		b = ((unreliableTimer.equals("yes"))? true: false);
+		return b;
+	}
+	
+	public boolean isTipped(){
+		boolean tippedB;
+		tippedB = ((tipped.equals("yes"))? true: false);
+		return tippedB;
+	}
+	
+	public int getStacksKnockedOver(){
+		return stacksKnockedOver;
 	}
 	
 	public String getScoutName(){
@@ -77,7 +115,7 @@ public class OtherData {
 	
 	public boolean isAutonWeWant(){
 		boolean isAutonWeWantB;
-		isAutonWeWantB = (("yes" == autonWeWant)? true:false);
+		isAutonWeWantB = ((autonWeWant.equals("yes"))? true:false);
 		return isAutonWeWantB;
 	}
 
@@ -95,7 +133,7 @@ public class OtherData {
 	
 	public boolean isBroken(){
 		boolean broken;
-		broken = (("yes" == esBroken)? true:false);
+		broken = ((esBroken.equals("yes"))? true: false);
 		return broken;
 	}
 	
@@ -109,37 +147,37 @@ public class OtherData {
 	
 	public boolean isAbsent(){
 		boolean absentB;
-		absentB = (("yes" == absent)? true:false);
+		absentB = ((absent.equals("yes"))? true:false);
 		return absentB;
 	}
 	
 	public boolean isCoopertitionStacked(){
 		boolean coopStackedB;
-		coopStackedB = (("yes" == coopStacked)? true:false);
+		coopStackedB = ((coopStacked.equals("yes"))? true:false);
 		return coopStackedB;
 	}
 	
 	public boolean isDidNothing(){
 		boolean didNothingB;
-		didNothingB = (("yes" == didNothing)? true:false);
+		didNothingB = ((didNothing.equals("yes"))? true:false);
 		return didNothingB;
 	}
 	
 	public boolean isTakesFromHumanPlayer(){
 		boolean takesFromHumanPlayerB;
-		takesFromHumanPlayerB = (("yes" == takesFromHumanPlayer)? true: false);
+		takesFromHumanPlayerB = ((takesFromHumanPlayer.equals("yes"))? true: false);
 		return takesFromHumanPlayerB;
 	}
 	
 	public boolean isStackedAllThreeAutoTotes(){
 		boolean stackedAllThreeAutoB;
-		stackedAllThreeAutoB = (("yes" == stackedAllThreeAuto)? true: false);
+		stackedAllThreeAutoB = ((stackedAllThreeAuto.equals("yes"))? true: false);
 		return stackedAllThreeAutoB;
 	}
 	
 	public boolean isTakesFromLandfill(){
 		boolean takesFromLandfillB;
-		takesFromLandfillB = (("yes" == takesFromLandfill)? true: false);
+		takesFromLandfillB = ((takesFromLandfill.equals("yes"))? true: false);
 		return takesFromLandfillB;
 	}
 	
@@ -149,17 +187,19 @@ public class OtherData {
 	
 	public boolean isPickedUpKnockedOverContainers(){
 		boolean knockedContainersB;
-		knockedContainersB = (("yes" == knockedContainers)? true: false);
+		knockedContainersB = ((knockedContainers.equals("yes"))? true: false);
 		return knockedContainersB;
 	}
 	
 	public boolean isPickedUpKnockedOverTotes(){
 		boolean knockedTotesB;
-		knockedTotesB = (("yes" == knockedTotes)? true: false);
+		knockedTotesB = ((knockedTotes.equals("yes"))? true: false);
 		return knockedTotesB;
 	}
 	
 	public boolean isRobotMovedAuto(){
-		return (madeItToAutoZone == "yes");
+		boolean autoB;
+		autoB = (madeItToAutoZone.equals("yes") ? true:false);
+		return autoB;
 	}
 }
