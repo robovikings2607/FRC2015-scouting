@@ -24,7 +24,7 @@ public class Creator {
 
 		
 		try {
-			ArrayList<List<Integer>> y = getMatchList("2015padre");
+			ArrayList<List<Integer>> y = getMatchList("2015mrcmp");
 			
 			CSVHandler.writeArrayToFile(y);
 			

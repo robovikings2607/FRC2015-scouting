@@ -29,7 +29,7 @@ public class SQLToExcel {
 				"Total Noodle Points", "Total Stack Points", "Total Co-op Points", "Total Points Without Fouls", "Total Points", "Points Per Second", "Auto Totes Moved", "Auto Totes Stacked", "Auto Cans Moved", "Auto Robot Moved", "Auto Center Cans",
 				"Broken", "Did Nothing", "Stacks Knocked Over", "Absent", "Tipped Over", "Fouls", "Total Foul Points", "Time taken for Coopertition",
 				"Totes From Landfill", "Totes From Human", "Noodles Push To Landfill", "Pick Up Knocked Over Totes", "Pick Up Knocked Over Cans", "Containers From Center",
-				"Notes"};
+				"Notes", "Coop Totes", "1 Stacks", "2 Stacks", "3 Stacks", "4 Stacks", "5 Stacks", "6 Stacks"};
 		
 		headerList = new ArrayList<String>();
 		headerList.addAll(Arrays.asList(headers));
@@ -85,7 +85,16 @@ public class SQLToExcel {
 					for (int foo = 1; foo <= 6; foo++){
 						writer.setCell(String.valueOf(getTotesAtHeight(foo-1, match)), headerList.indexOf("Totes Level " + foo), i);
 						writer.setCell(String.valueOf(getContainersAtHeight(foo, match)), headerList.indexOf("Cans Level " + foo), i);
+						
 					}
+					
+					writer.setCell(String.valueOf(getStacks(match)[0]), headerList.indexOf("1 Stacks"), i);
+					writer.setCell(String.valueOf(getStacks(match)[1]), headerList.indexOf("2 Stacks"), i);
+					writer.setCell(String.valueOf(getStacks(match)[2]), headerList.indexOf("3 Stacks"), i);
+					writer.setCell(String.valueOf(getStacks(match)[3]), headerList.indexOf("4 Stacks"), i);
+					writer.setCell(String.valueOf(getStacks(match)[4]), headerList.indexOf("5 Stacks"), i);
+					writer.setCell(String.valueOf(getStacks(match)[5]), headerList.indexOf("6 Stacks"), i);
+					
 					
 					writer.setCell(String.valueOf(getTotalCanPoints(match)), headerList.indexOf("Total Can Points"), i);
 					writer.setCell(String.valueOf(getTotalTotePoints(match)), headerList.indexOf("Total Tote Points"), i);
@@ -117,7 +126,8 @@ public class SQLToExcel {
 					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverTotes()?1:0), headerList.indexOf("Pick Up Knocked Over Totes"), i);
 					writer.setCell(String.valueOf(match.otherData.isPickedUpKnockedOverContainers()?1:0), headerList.indexOf("Pick Up Knocked Over Cans"), i);
 					writer.setCell(String.valueOf(match.otherData.containersFromCenter()), headerList.indexOf("Containers From Center"), i);
-					writer.setCell(String.valueOf((match.otherData.isTimerUnreliable() || (match.otherData.getTimerCount() == 0)) ? null:match.otherData.getTimerCount()), headerList.indexOf("Time taken for Coopertition"), i);
+					writer.setCell(String.valueOf(( (match.otherData.getTimerCount() == 0)) ? null:match.otherData.getTimerCount()), headerList.indexOf("Time taken for Coopertition"), i);
+					writer.setCell(String.valueOf(match.otherData.getCoopTotes()), headerList.indexOf("Coop Totes"),i);
 					
 					writer.setCell(String.valueOf(match.otherData.getGameNotes()), headerList.indexOf("Notes"), i);
 					
@@ -139,6 +149,83 @@ public class SQLToExcel {
 		return totes;
 	}
 	
+	private int[] getStacks(Match match){
+	int[] stack = new int[6];
+	for (Stack s : match.getStacks()){
+			switch (s.getNumberOfTotes()){
+			case 1: stack[0] += 1;
+					break;
+			case 2: stack[1] += 1;
+					break;
+			case 3: stack[2] += 1;
+					break;
+			case 4: stack[3] += 1;
+					break;
+			case 5: stack[4] += 1;
+					break;
+			case 6: stack[5] += 1;
+					break;
+				
+			}
+		}
+		return stack;
+	}
+
+	private int getOneStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 1){
+				t +=1;
+			}
+		}
+		return t;
+	}
+	
+	private int getTwoStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 2){
+				t +=1;
+			}
+		}
+		return t;
+	}
+	private int getThreeStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 3){
+				t +=1;
+			}
+		}
+		return t;
+	}
+	private int getFourStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 4){
+				t +=1;
+			}
+		}
+		return t;
+	}
+	private int getFiveStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 5){
+				t +=1;
+			}
+		}
+		return t;
+	}
+	private int getSixStacks(Match match){
+		int t = 0;
+		for (Stack s : match.getStacks()){
+			if(s.getNumberOfTotes() == 6){
+				t +=1;
+			}
+		}
+		return t;
+	}
 	
 	private int getContainersAtHeight(int height, Match match){
 		int cans = 0;
@@ -193,12 +280,12 @@ public class SQLToExcel {
 	}
 	
 	private int getTotalCoopPoints(Match match){
-		if (match.getMatchNumber() > 36 || match.getOtherData().getTimerCount() > 0){ //|| match.getOtherData().isCoopertitionStacked()){ != data.get(match.teamNumber).getMatch(match.getMatchNumber() - 1).getOtherData().isCoopertitionStacked()){
-			return match.getOtherData().isCoopertitionStacked()?1:0 * 40;
-		} else {
-			return 0;		
-		}
+		return match.getOtherData().getCoopTotes() > 0?40:0;
+		
 	}
+	
+	
+	
 	
 	private int getTotalPoints(Match match){
 		return getTotalStackPoints(match) + getTotalCoopPoints(match) - getTotalFoulPoints(match);
@@ -209,7 +296,7 @@ public class SQLToExcel {
 	}
 	
 	private double getPointsPerSecond(Match match){
-		return (double) (getTotalStackPoints(match))/(135.0 - (match.otherData.isTimerUnreliable() ? 0.0:match.otherData.getTimerCount()));
+		return (double) (getTotalStackPoints(match))/(135.0 - (match.otherData.getTimerCount()));
 	}
 	
 }

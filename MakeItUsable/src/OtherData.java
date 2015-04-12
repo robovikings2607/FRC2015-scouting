@@ -32,6 +32,7 @@ public class OtherData {
 	private int timerCount;
 	private String unreliableTimer;
 	private String tipped;
+	private int coopTotes;
 	
 	
 	public OtherData(int matchNumber, int teamNumber, Statement stat) throws SQLException{
@@ -63,7 +64,7 @@ public class OtherData {
 				 scoutName = rs.getString(2);
 				 stacksKnockedOver = rs.getInt(46);
 				tipped = (rs.getString(50));
-				unreliableTimer = (rs.getString(48));
+				coopTotes = (rs.getInt(48));
 				fouls = (rs.getInt(49));
 				timerCount = (rs.getInt(47));
 				 
@@ -71,6 +72,10 @@ public class OtherData {
 		  }
 		  rs.close();
 		  //con.close();
+	}
+	
+	public int getCoopTotes(){
+		return coopTotes;
 	}
 	
 	public int getTimerCount(){
@@ -85,11 +90,11 @@ public class OtherData {
 		return (fouls *6);
 	}
 	
-	public boolean isTimerUnreliable(){
-		boolean b;
-		b = ((unreliableTimer.equals("yes"))? true: false);
-		return b;
-	}
+//	public boolean isTimerUnreliable(){
+//		boolean b;
+//		b = ((unreliableTimer.equals("yes"))? true: false);
+//		return b;
+//	}
 	
 	public boolean isTipped(){
 		boolean tippedB;

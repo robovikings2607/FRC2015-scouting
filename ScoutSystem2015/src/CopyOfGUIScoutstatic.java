@@ -113,6 +113,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	 static JTextField textField_1;
 	 static JTextField ipField;
 	 static JTextField timerField;
+	 
+	
 	
 //	 final static int NULL = 0;
 //	 final static int DISCONNECTED = 1;
@@ -245,6 +247,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 	private static JButton resetButton;
 	private static JCheckBox timerBox;
 	private static String timerCheck;
+	private static JSpinner coopSpinner;
+	private static JLabel coopTotesLabel;
+	private static int coopTotes;
 	/**
 	 * Launch the application.
 	 */
@@ -423,6 +428,10 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		syncButton.setActionCommand("sync!");
 		menu.add(syncButton);
 		syncButton.setActionCommand("sync!");
+		
+		
+		
+		
 		
 		
 		 buttonListener = new ActionAdapter(){
@@ -785,11 +794,13 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		chckbxCoopertitionStacked.setActionCommand("coop");
 		coopertitionStacked = "no";
 		autoTotesStacked = "no";
+		chckbxCoopertitionStacked.setVisible(false);
+		chckbxCoopertitionStacked.setEnabled(false);
 		
 		chkbxTakesFromLandFill = new JCheckBox("Takes from landfill?");
 		chkbxTakesFromLandFill.setBackground(new Color(204, 204, 204));
 		chkbxTakesFromLandFill.setFont(new Font("Arial", Font.BOLD, 11));
-		chkbxTakesFromLandFill.setBounds(250, 220, 186, 23);
+		chkbxTakesFromLandFill.setBounds(250, 190, 186, 23);
 		frame.getContentPane().add(chkbxTakesFromLandFill);
 		chkbxTakesFromLandFill.setActionCommand("takesFromLandfill");
 		takesFromLandFill = "no";
@@ -937,8 +948,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		
 		buttonListener = new ActionAdapter() {
             public void actionPerformed(ActionEvent e) {
-               // Request a connection initiation
+               
                if (e.getActionCommand().equals("submit")) {
+            	   
             	   tableName = "MatchNumber_" + Integer.toString(matchNumber);
             	   
             	   for (int counter = 0;counter< containerHeight.length; counter++){
@@ -1000,6 +1012,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
                   sql.setUnreliableTimer(timerCheck);
                   sql.setFouls(fouls);
                   sql.setCoopertitionTimer(counter);
+                  sql.setCoopTotes(coopTotes);
                   
                   
                   System.out.println("Total Points Scored: " + pointsScored);
@@ -1065,6 +1078,9 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 						}
 				  	checkPaths();
                   reset();
+ 
+                 
+                 
                }
             }
          };
@@ -1510,22 +1526,45 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
  		timerField.setFont(new Font("Arial", Font.BOLD, 12));
  		timerField.setBackground(Color.lightGray);
  		timerField.setText("0");
- 		timerField.setBounds(180, 260, 35, 35);
+ 		timerField.setBounds(320, 260, 35, 35);
  		frame.getContentPane().add(timerField);
  		timerField.setColumns(10);
  		timerField.setVisible(true);
   		
   		timerButton = new JButton("Start Timer");
-		timerButton.setBounds(10, 260, 150, 35);
+		timerButton.setBounds(150, 260, 150, 35);
 		timerButton.setBackground(Color.lightGray);
 		frame.getContentPane().add(timerButton);
 		timerButton.setActionCommand("timer");
 		
 		resetButton = new JButton("Reset");
-		resetButton.setBounds(230, 260, 75, 35);
+		resetButton.setBounds(370, 260, 75, 35);
 		resetButton.setBackground(Color.lightGray);
 		frame.getContentPane().add(resetButton);
 		resetButton.setActionCommand("reset");
+		
+		coopSpinner = new JSpinner();
+		coopSpinner.setForeground(new Color(204, 204, 255));
+		coopSpinner.setBackground(new Color(204, 204, 204));
+		coopSpinner.setBounds(70, 260, 46, 33);
+		coopSpinner.setBackground(Color.lightGray);
+		frame.getContentPane().add(coopSpinner);
+		coopTotes = coopTotes = Integer.parseInt(coopSpinner.getValue().toString());
+		
+		coopSpinner.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent q) {
+				coopTotes = Integer.parseInt(coopSpinner.getValue().toString());
+				
+			}	
+		});
+		
+		coopTotesLabel = new JLabel("<html> Totes<> put on<> step<>");
+		coopTotesLabel.setBounds(10, 245, 50, 60);
+		frame.getContentPane().add(coopTotesLabel);
+		
+		
+		
 		
 		timerBox = new JCheckBox("Unreliable Data?");
 		timerBox.setBackground(Color.lightGray);
@@ -1533,6 +1572,8 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
 		timerBox.setBounds(320, 260, 130, 35);
 		frame.getContentPane().add(timerBox);
 		timerBox.setActionCommand("unreliable");
+		timerBox.setVisible(false);
+		timerBox.setEnabled(false);
 		timerCheck = "no";
 		
 		 buttonListener = new ActionAdapter(){
@@ -1781,6 +1822,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          middleContainersSpinner.setValue(0);
          knockedOverStacksSpinner.setValue(0);
          autoCenterContainersSpinner.setValue(0);
+         coopSpinner.setValue(0);
          spinner_landFouls.setValue(0);
          
          matchNumber += 1;
@@ -1792,6 +1834,7 @@ public class CopyOfGUIScoutstatic extends JFrame implements Runnable {
          containerPoints = 0;
          noodlePoints = 0;
          noodles = 0;
+         coopTotes =0;
          
          totalContainerHeight = 0;
          totalTotes = 0;

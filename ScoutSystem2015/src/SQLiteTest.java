@@ -45,6 +45,7 @@ public class SQLiteTest{
   String tipped;
   int fouls;
   String unreliable;
+  int coopTotes;
   
   
   String namedFile = "scoutdb.db";
@@ -80,7 +81,7 @@ public void run() throws Exception {
 				   "HeightOfContainerInColumnFiveForward INT," + "HeightOfContainerInColumnSixForward INT," + "HeightOfContainerInColumnSevenForward INT," +"HeightOfContainerInColumnOneBack INT," +
 				   "HeightOfContainerInColumnTwoBack INT," + "HeightOfContainerInColumnThreeBack INT," + "HeightOfContainerInColumnFourBack INT," +
 				   "HeightOfContainerInColumnFiveBack INT," + "HeightOfContainerInColumnSixBack INT," + "HeightOfContainerInColumnSevenBack INT," + "NoodleNumberForward INT," + "NoodleNumberBack INT," +
-				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT," + "knockedStacks INT," + "timer INT," + "timerCheck varchar(30)," + "fouls INT," + "tipped varchar(30));");
+				   "knockedContainers varchar(30)," + "knockedTotes varchar(30)," + "autonWeWant varchar(30)," + "containersFromCenterTeleop INT," + "containersFromCenterAuto INT," + "knockedStacks INT," + "timer INT," + "coopTotes INT," + "fouls INT," + "tipped varchar(30));");
 		  firstTime = false;
 	  
   } else {
@@ -153,9 +154,11 @@ public void run() throws Exception {
   prep.setInt(45, autoContainersFromCenter);
   prep.setInt(46, knockedStacks);
   prep.setInt(47, counter);
-  prep.setString(48, unreliable);
+  //prep.setString(48, unreliable);
+  prep.setInt(48, coopTotes);
   prep.setInt(49, fouls);
   prep.setString(50, tipped);
+  
   
 
   prep.execute();
@@ -332,6 +335,10 @@ public void setFouls(int fouls){
 
 public void setUnreliableTimer(String unreliable){
 	this.unreliable = unreliable;
+}
+
+public void setCoopTotes(int coopTotes){
+	this.coopTotes = coopTotes;
 }
 
 //public void synchronize() throws Exception{

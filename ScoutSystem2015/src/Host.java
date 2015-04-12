@@ -465,7 +465,7 @@ public class Host extends JFrame {
 					    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
 					    CopyOfGUIScoutstatic.sql.setKnockedOverStacks(rs.getInt(46));
 					    CopyOfGUIScoutstatic.sql.setTippedOver(rs.getString(50));
-					    CopyOfGUIScoutstatic.sql.setUnreliableTimer(rs.getString(48));
+					    CopyOfGUIScoutstatic.sql.setCoopTotes(rs.getInt(48));
 					    CopyOfGUIScoutstatic.sql.setFouls(rs.getInt(49));
 					    CopyOfGUIScoutstatic.sql.setCoopertitionTimer(rs.getInt(47));
 					    
@@ -557,7 +557,7 @@ public class Host extends JFrame {
 				    CopyOfGUIScoutstatic.sql.setAutoContainersFromCenter(rs.getInt(45));
 				    CopyOfGUIScoutstatic.sql.setKnockedOverStacks(rs.getInt(46));
 				    CopyOfGUIScoutstatic.sql.setTippedOver(rs.getString(50));
-				    CopyOfGUIScoutstatic.sql.setUnreliableTimer(rs.getString(48));
+				    CopyOfGUIScoutstatic.sql.setCoopTotes(rs.getInt(48));
 				    CopyOfGUIScoutstatic.sql.setFouls(rs.getInt(49));
 				    CopyOfGUIScoutstatic.sql.setCoopertitionTimer(rs.getInt(47));
 				    
